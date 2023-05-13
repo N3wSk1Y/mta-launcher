@@ -1,6 +1,9 @@
 ::-webkit-scrollbar {
     display: none;
 }
+body {
+    overflow-x: hidden;
+}
 #left-selector {
     position: absolute;
     left: 0px;
