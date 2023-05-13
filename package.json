@@ -1,0 +1,14 @@
+{
+  "name": "mta-launcher",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^24.3.0"
+  }
+}
