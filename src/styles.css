@@ -9,6 +9,9 @@ body {
 ::-webkit-scrollbar {
     display: none;
 }
+img {
+    pointer-events: none;
+}
 #titlebar {
     position: absolute;
     top: 0px;
@@ -31,7 +34,7 @@ body {
     border-top-left-radius: 15px;
     border-bottom-left-radius: 15px;
 }
-#news-container {
+#changing-container {
     position: absolute;
     left: 100px;
     top: 0px;
@@ -134,4 +137,65 @@ a {
 #close-btn {
     margin-top: 15px;
     margin-left: 15px;
+}
+h2 {
+    letter-spacing: 1px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 100%;
+    color: rgba(180, 196, 213, 0.65);
+    text-transform: uppercase;
+}
+#beta-key {
+    margin-left: 30px;
+    margin-top: 35px;
+}
+.settings p {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 100%;
+    color:#FFFFFF;
+}
+.settings input[type=checkbox] {
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+}
+.settings input[type=checkbox]::after {
+    background: #2E8DFF;
+}
+.server h3{
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 100%;
+    color:#FFFFFF;
+}
+.server h4 {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 100%;
+    color:#FFFFFF;
+}
+.server label {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 100%;
+    color: rgba(180, 196, 213, 0.65);
+}
+.server button {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 100%;
+    color:#FFFFFF;
+    background-color: #2E8DFF;
+    border-radius: 10px;
+    padding: 15px 30px;
+    outline: none;
+    border: none;
 }

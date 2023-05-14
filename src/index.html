@@ -8,15 +8,15 @@
     <div class="segment" id="left-selector">
         <img id="logo"></img>
         <div class="page-selector">
-            <input id="selector-1" type="radio" name="selector" value="home" checked>
+            <input id="selector-1" type="radio" name="selector" value="home" onchange="changePage(this)" checked>
             <label for="selector-1"><img id="home-icon" src="public/home.svg"></label>
         </div>       
         <div class="page-selector">
-            <input id="selector-2" type="radio" name="selector" value="settings">
+            <input id="selector-2" type="radio" name="selector" value="settings" onchange="changePage(this)">
             <label for="selector-2"><img id="settings-icon" src="public/settings.svg"></label>
         </div>
     </div>
-    <div class="segment" id="news-container">
+    <div class="segment" id="changing-container">
         <h1 id="trendy">актуальное</h1>
         <div class="links">
             <a><p>официальный сайт</p><img src="public/arrow.svg"></a>
@@ -31,6 +31,8 @@
         <h1 id="trendy">наши сервера</h1>
         <!-- <button src="public/minimize.svg" id="minimize-btn"></button>
         <button src="public/close.svg" id="close-btn"></button> -->
+        <div id="servers"></div>
     </div>
 </body>
+<script src="front.js"></script>
 </html>
