@@ -116,7 +116,7 @@ a {
     border-radius: 10px;
     text-decoration: none;
 }
-.links p {
+p {
     font-style: normal;
     font-weight: 600;
     font-size: 12px;
@@ -198,4 +198,42 @@ h2 {
     padding: 15px 30px;
     outline: none;
     border: none;
+}
+#beta-key-value {
+    margin-left: 30px;
+    width: 360px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    padding: 17px 15px 16px 15px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.segment button {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 100%;
+    padding: 15px 30px;
+    color:#2E8DFF;
+    background: rgba(46, 141, 255, 0.15);
+    border-radius: 10px;
+    outline: none;
+    border: none;
+}
+#save-button {
+    position: absolute;
+    left: 425px;
+    top: 115px;
+    height: 45px;
+}
+#game-path {
+    margin-top: 35px;
+    margin-left: 30px;
+}
+#change-button {
+    position: absolute;
+    left: 425px;
+    top: 224px;
+    height: 45px;
 }

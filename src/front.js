@@ -39,6 +39,11 @@ function settingsContent() {
         `
         <h1>настройки</h1>
         <h2 id="beta-key">бета ключ</h2>
+        <p id="beta-key-value">C:\\Users\\Dmitry\\WebstormProjects\\mta-launcher\\test_gamepath</p>
+        <button id="save-button">Cохранить</button>
+        <h2 id="game-path">путь до игры</h2>
+        <p id="beta-key-value">C:\\User\\program files\\gta derzhava</p>
+        <button id="change-button">Изменить</button>
         <div class="settings">
             <p><input type="checkbox" name="settings-checkbox">Настройка с чекбоксом</p>
             <p><input type="checkbox" name="settings-checkbox">Настройка с чекбоксом, не включена</p>
