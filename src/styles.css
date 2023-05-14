@@ -238,7 +238,7 @@ h2 {
     outline: none;
     border: none;
 }
-.segment button {
+button {
     font-style: normal;
     font-weight: 700;
     font-size: 14px;
