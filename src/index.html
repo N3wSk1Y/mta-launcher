@@ -7,14 +7,30 @@
     <div id="titlebar"></div>
     <div class="segment" id="left-selector">
         <img id="logo"></img>
-        <div class="page-selector"><input type="radio" name="selector-1"><img id="home-icon" src="public/home.svg"></div>
-        <div class="page-selector"><input type="radio" name="selector-1"><img id="settings-icon" src="public/settings.svg"></div>
+        <div class="page-selector">
+            <input id="selector-1" type="radio" name="selector" value="home" checked>
+            <label for="selector-1"><img id="home-icon" src="public/home.svg"></label>
+        </div>       
+        <div class="page-selector">
+            <input id="selector-2" type="radio" name="selector" value="settings">
+            <label for="selector-2"><img id="settings-icon" src="public/settings.svg"></label>
+        </div>
     </div>
     <div class="segment" id="news-container">
+        <h1 id="trendy">актуальное</h1>
+        <div class="links">
+            <a><p>официальный сайт</p><img src="public/arrow.svg"></a>
+            <a><p>форум</p><img src="public/arrow.svg"></a>
+            <a><p>vk</p><img src="public/arrow.svg"></a>
+            <a><p>telegram</p><img src="public/arrow.svg"></a>
+        </div>
     </div>
     <div class="segment" id="update-container">
     </div>
     <div class="segment" id="server-selector">
+        <h1 id="trendy">наши сервера</h1>
+        <!-- <button src="public/minimize.svg" id="minimize-btn"></button>
+        <button src="public/close.svg" id="close-btn"></button> -->
     </div>
 </body>
 </html>
