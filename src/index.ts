@@ -1,9 +1,9 @@
-import { app, BrowserWindow, ipcMain } from 'electron';
+import { app, BrowserWindow, ipcMain, dialog } from 'electron';
 import * as path from "path";
 import {GameFilesHandler} from "./gamefileshandler/GameFilesHandler";
 
 const createWindow = () => {
-    const win = new BrowserWindow({
+    const mainWindow = new BrowserWindow({
         width: 1080,
         height: 725,
         resizable: false,
@@ -15,20 +15,16 @@ const createWindow = () => {
             preload: path.join(__dirname, 'preload.js'),
             nodeIntegration: true
         }
-        // titleBarStyle: 'hidden',
-        // titleBarOverlay: {
-        //     color: '#0C0C0C',
-        //     symbolColor: '#616162',
-        //     height: 25
-        // }
     })
 
-    win.loadFile('src/index.html')
+    mainWindow.loadFile('src/index.html')
 
-    ipcMain.on('playGame', async (event, args) => {
+    ipcMain.handle('playGame', async (event, args) => {
         gameFilesHandler.UpdateFiles()
         console.log("Updating...")
     })
+
+    ipcMain.handle('getDirectory', getDirectory)
 }
 
 const gameFilesHandler = new GameFilesHandler("C:\\Users\\Dmitry\\WebstormProjects\\mta-launcher\\test_gamepath", -1)
@@ -48,3 +44,18 @@ app.on('window-all-closed', () => {
         app.quit()
     }
 })
+
+async function getDirectory (): Promise<string> {
+    const { canceled, filePaths } = await dialog.showOpenDialog({
+        title: "Выберите папку с игрой",
+        properties: ["openDirectory"],
+        buttonLabel: "Выбрать папку",
+        defaultPath: "/Users/<username>/",
+    })
+    if (!canceled) {
+        console.log(filePaths[0])
+        return filePaths[0]
+    } else {
+        return "";
+    }
+}
