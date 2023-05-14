@@ -39,21 +39,19 @@ function settingsContent() {
         `
         <h1>настройки</h1>
         <h2 id="beta-key">бета ключ</h2>
-        <p id="beta-key-value">C:\\Users\\Dmitry\\WebstormProjects\\mta-launcher\\test_gamepath</p>
+        <input type="text" id="beta-key-value">
         <button id="save-button">Cохранить</button>
         <h2 id="game-path">путь до игры</h2>
-        <p id="beta-key-value">C:\\User\\program files\\gta derzhava</p>
-        <button id="change-button">Изменить</button>
+        <p id="game-path-value">C:\\User\\program files\\gta derzhava</p>
+        <button id="change-button" onclick="changePath()">Изменить</button>
         <div class="settings">
-            <p><input type="checkbox" name="settings-checkbox">Настройка с чекбоксом</p>
-            <p><input type="checkbox" name="settings-checkbox">Настройка с чекбоксом, не включена</p>
-            <p><input type="checkbox" name="settings-checkbox">Настройка с чекбоксом 
-            в две строчки</p>
-            <p><input type="checkbox" name="settings-checkbox">Настройка с чекбоксом</p>
             <p><input type="checkbox" name="settings-checkbox">Заменять звуки</p>
             <p><input type="checkbox" name="settings-checkbox">Заменять погоду</p>
             <p><input type="checkbox" name="settings-checkbox">Заменять эффекты</p>
             <p><input type="checkbox" name="settings-checkbox">Заменять текстуры эффектов</p>
+            <p><input type="checkbox" name="settings-checkbox">Заменять текстуры транспорта/p>
+            <p><input type="checkbox" name="settings-checkbox">Заменять оформление МТА</p>
+            <p><input type="checkbox" name="settings-checkbox">Заменять текстуры травы</p>     
         </div>
         `
     );
@@ -80,6 +78,10 @@ function oneServer(servers) {
     </div>
     `;
     //${servers[0].id}
+}
+async function changePath() {
+    const filePath = await window.electronAPI.getDirectory()
+    document.getElementById('game-path-value').innerText = filePath
 }
 serversUpdate();
 //setInterval(serversUpdate, 5000);

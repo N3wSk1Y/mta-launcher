@@ -202,12 +202,41 @@ h2 {
 #beta-key-value {
     margin-left: 30px;
     width: 360px;
+    height: 12px;
+    margin-top: 3.5px;
     background: rgba(255, 255, 255, 0.05);
     border-radius: 10px;
     padding: 17px 15px 16px 15px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 100%;
+    color:#FFFFFF;
+    text-transform: uppercase;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    outline: none;
+    border: none;
+    user-select: text;
+}
+#game-path-value {
+    margin-left: 30px;
+    width: 360px;
+    height: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    padding: 17px 15px 16px 15px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 100%;
+    color:#FFFFFF;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    outline: none;
+    border: none;
 }
 .segment button {
     font-style: normal;
