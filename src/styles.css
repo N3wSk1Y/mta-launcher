@@ -312,3 +312,32 @@ button {
     top: 224px;
     height: 45px;
 }
+#close-label {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    width: 10px;
+    height: 10px;
+}
+#close-btn {
+    display: none;
+    width: 10px;
+    height: 10px;
+}
+#minimize-label {
+    position: absolute;
+    right: 45px;
+    top:19px;
+    width: 10px;
+    height: 10px;
+}
+#minimize-btn {
+    display: none;
+    width: 10px;
+    height: 10px;
+}
+#minimize-img {
+    position: absolute;
+    right: 0px;
+    top:4px;
+}

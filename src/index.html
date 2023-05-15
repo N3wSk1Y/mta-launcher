@@ -29,8 +29,15 @@
     </div>
     <div class="segment" id="server-selector">
         <h1 id="trendy">наши сервера</h1>
-        <!-- <button src="public/minimize.svg" id="minimize-btn"></button>
-        <button src="public/close.svg" id="close-btn"></button> -->
+        <label id="minimize-label">
+            <input type="button" id="minimize-btn" onclick="window.electronAPI.minimizeApp()">
+            <img src="public/minimize.svg" id="minimize-img">
+        </label>
+        <label id="close-label">
+            <input type="button" id="close-btn" onclick="window.electronAPI.closeApp()">
+            <img src="public/close.svg">
+        </label>
+        
         <div id="servers"></div>
     </div>
 </body>

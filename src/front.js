@@ -15,13 +15,6 @@ async function serversUpdate() {
             "maxPlayers": 1000,
             "status": 1,
             "image": "https://yrp.life/uploads/monthly_2021_12/sc11.png.f3e6e3c59f59c0e192af09628405bb92.png"
-        },
-        {
-            "id": 1,
-            "players": 666,
-            "maxPlayers": 1000,
-            "status": 1,
-            "image": "https://yrp.life/uploads/monthly_2021_12/sc11.png.f3e6e3c59f59c0e192af09628405bb92.png"
         }
     ];
     switch (servers.length) {
