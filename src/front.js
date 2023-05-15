@@ -23,6 +23,32 @@ async function serversUpdate() {
             break;
     }
 }
+async function getNews() {
+    let news = [
+        {
+            "id": 0,
+            "image": "https://img4.goodfon.com/wallpaper/nbig/a/b5/grand-theft-auto-v-gta-5-game-city-landscape.jpg",
+            "title": "Мы открылись!",
+            "description": "Открытие лучшего проекта в MTA!",
+            "type": "Обновление"
+        },
+        {
+            "id": 1,
+            "image": "https://img4.goodfon.com/wallpaper/nbig/a/b5/grand-theft-auto-v-gta-5-game-city-landscape.jpg",
+            "title": "Мы открылись!",
+            "description": "Открытие лучшего проекта в MTA!",
+            "type": "Обновление"
+        },
+        {
+            "id": 2,
+            "image": "https://img4.goodfon.com/wallpaper/nbig/a/b5/grand-theft-auto-v-gta-5-game-city-landscape.jpg",
+            "title": "Мы открылись!",
+            "description": "Открытие лучшего проекта в MTA!",
+            "type": "Обновление"
+        }
+    ];
+    return news;
+}
 function newsContent() {
     return (
         `

@@ -116,6 +116,9 @@ a {
     border-radius: 10px;
     text-decoration: none;
 }
+a:hover {
+    filter: brightness(75%);
+}
 p {
     font-style: normal;
     font-weight: 600;
@@ -296,6 +299,9 @@ button {
     outline: none;
     border: none;
 }
+button:hover {
+    filter: brightness(75%);
+}
 #save-button {
     position: absolute;
     left: 425px;
@@ -316,18 +322,23 @@ button {
     position: absolute;
     right: 15px;
     top: 15px;
-    width: 10px;
-    height: 10px;
+    width: 12px;
+    height: 12px;
 }
 #close-btn {
     display: none;
-    width: 10px;
-    height: 10px;
+    width: 12px;
+    height: 12px;
+}
+#close-img {
+    position: absolute;
+    right: 0px;
+    top:0px;
 }
 #minimize-label {
     position: absolute;
     right: 45px;
-    top:19px;
+    top:15px;
     width: 10px;
     height: 10px;
 }
@@ -340,4 +351,22 @@ button {
     position: absolute;
     right: 0px;
     top:4px;
+}
+input[type=button]:hover + img{
+    filter: brightness(50%);
+}
+#tick {
+    position: absolute;
+    left: 34.5px;
+    bottom: 58px;
+}
+#update-status {
+    position: absolute;
+    left: 74px;
+    top: 37px;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 100%;
+    color:#FFFFFF;
 }

@@ -26,6 +26,8 @@
         </div>
     </div>
     <div class="segment" id="update-container">
+        <img src="public/tick.svg" id="tick">
+        <h4 id="update-status">Установлена последния версия игры</h4>
     </div>
     <div class="segment" id="server-selector">
         <h1 id="trendy">наши сервера</h1>
@@ -35,7 +37,7 @@
         </label>
         <label id="close-label">
             <input type="button" id="close-btn" onclick="window.electronAPI.closeApp()">
-            <img src="public/close.svg">
+            <img src="public/close.svg" id="close-img">
         </label>
         
         <div id="servers"></div>
