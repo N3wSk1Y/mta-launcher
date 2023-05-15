@@ -167,6 +167,7 @@ h2 {
     background: #2E8DFF;
 }
 .server h3{
+    position: absolute;
     font-style: normal;
     font-weight: 700;
     font-size: 14px;
@@ -174,6 +175,7 @@ h2 {
     color:#FFFFFF;
 }
 .server h4 {
+    position: absolute;
     font-style: normal;
     font-weight: 600;
     font-size: 12px;
@@ -181,6 +183,7 @@ h2 {
     color:#FFFFFF;
 }
 .server label {
+    position: absolute;
     font-style: normal;
     font-weight: 600;
     font-size: 12px;
@@ -188,6 +191,7 @@ h2 {
     color: rgba(180, 196, 213, 0.65);
 }
 .server button {
+    position: absolute;
     font-style: normal;
     font-weight: 700;
     font-size: 14px;
@@ -195,9 +199,51 @@ h2 {
     color:#FFFFFF;
     background-color: #2E8DFF;
     border-radius: 10px;
-    padding: 15px 30px;
+    padding: 13px 44px;
     outline: none;
     border: none;
+}
+#servers {
+    position: absolute;
+    left: 30px;
+    top: 71px;
+    width: 330px;
+    height: 594px;
+}
+.server[name=server-container-1] {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 330px;
+    height: 594px;
+    border-radius: 15px;
+}
+#dot {
+    position: absolute;
+}
+.server button[name=play-1-5] {
+    left: 175px;
+    bottom: 20px;
+}
+.server h4[name=players-1-5] {
+    left: 20px;
+    bottom: 7.5px;
+}
+.server label[name=online-label-1-5] {
+    left: 20px;
+    bottom: 43.5px;
+}
+.server h3[name=server-name-1-5] {
+    left: 20px;
+    bottom: 75px;
+}
+.server label[name=state-label-1-5] {
+    left: 192px;
+    bottom: 89px;
+}
+.server img[name=state-dot-1-5] {
+    left: 168px;
+    bottom: 81.5px;
 }
 #beta-key-value {
     margin-left: 30px;

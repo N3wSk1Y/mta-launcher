@@ -15,10 +15,20 @@ async function serversUpdate() {
             "maxPlayers": 1000,
             "status": 1,
             "image": "https://yrp.life/uploads/monthly_2021_12/sc11.png.f3e6e3c59f59c0e192af09628405bb92.png"
+        },
+        {
+            "id": 1,
+            "players": 666,
+            "maxPlayers": 1000,
+            "status": 1,
+            "image": "https://yrp.life/uploads/monthly_2021_12/sc11.png.f3e6e3c59f59c0e192af09628405bb92.png"
         }
     ];
-
-    if (servers.length == 1) oneServer(servers);
+    switch (servers.length) {
+        case 1:
+            oneServer(servers);
+            break;
+    }
 }
 function newsContent() {
     return (
@@ -66,15 +76,15 @@ function changePage(selector) {
 }
 function oneServer(servers) {
     let serverContainer = document.getElementById("servers");
-    console.log(serverContainer)
     serverContainer.innerHTML = 
     `
-    <div class="server">
-        <h3>Сервер #${servers[0].id + 1}</h3>
-        <label>Онлайн</label>
-        <h4>${servers[0].players}/${servers[0].maxPlayers}</h4>
-        <label>Состояние</label>
-        <button onclick="window.electronAPI.playGame()">Играть</a>
+    <div class="server" name="server-container-1" style="background: linear-gradient(0.56deg, #141414 21.99%, rgba(0, 0, 0, 0) 85.01%), url('${servers[0].image}');">
+        <h3 name="server-name-1-5">Сервер #${servers[0].id + 1}</h3>
+        <label name="online-label-1-5">Онлайн</label>
+        <h4 name="players-1-5">${servers[0].players}/${servers[0].maxPlayers}</h4>
+        <label name="state-label-1-5">Состояние</label>
+        <img id="dot" name="state-dot-1-5" src="public/dot.svg">
+        <button name="play-1-5" onclick="window.electronAPI.playGame()">Играть</a>
     </div>
     `;
     //${servers[0].id}
