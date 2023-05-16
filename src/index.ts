@@ -1,6 +1,7 @@
 import { app, BrowserWindow, ipcMain, dialog } from 'electron';
 import * as path from "path";
-import {GameFilesHandler} from "./gamefileshandler/GameFilesHandler";
+import {GameFilesHandler} from "./entities/GameFilesHandler";
+const appconfig = require('./appconfig.json');
 
 const createWindow = () => {
     const mainWindow = new BrowserWindow({
@@ -19,7 +20,7 @@ const createWindow = () => {
 
     mainWindow.loadFile('src/index.html')
 
-    ipcMain.handle('playGame', async (event, args) => {
+    ipcMain.handle('connectToServer', async (event, args) => {
         gameFilesHandler.UpdateFiles()
         console.log("Updating...")
     })
@@ -30,7 +31,14 @@ const createWindow = () => {
     ipcMain.on('minimizeApp', () => mainWindow.minimize());
 }
 
-const gameFilesHandler = new GameFilesHandler("C:\\Users\\Dmitry\\WebstormProjects\\mta-launcher\\test_gamepath", -1)
+const gameFilesHandler = new GameFilesHandler("C:\\Users\\Dmitry\\WebstormProjects\\mta-launcher\\test_gamepath", -1, {
+    host: appconfig.gamefiles_ftp.host,
+    username: appconfig.gamefiles_ftp.user,
+    password: appconfig.gamefiles_ftp.password,
+    protocol: "ftp",
+    autoConfirm: true,
+    cwd: appconfig.gamefiles_ftp.directory
+})
 
 app.whenReady().then(() => {
     createWindow()
@@ -48,17 +56,25 @@ app.on('window-all-closed', () => {
     }
 })
 
+process.on("uncaughtException", (err) => {
+    dialog.showMessageBoxSync({
+        type: "error",
+        title: "Произошла ошибка",
+        message: err.message
+    });
+    app.exit(1);
+});
+
 async function getDirectory (): Promise<string> {
     const { canceled, filePaths } = await dialog.showOpenDialog({
         title: "Выберите папку с игрой",
         properties: ["openDirectory"],
-        buttonLabel: "Выбрать папку",
-        defaultPath: "/Users/<username>/",
+        buttonLabel: "Выбрать папку"
     })
     if (!canceled) {
         console.log(filePaths[0])
         return filePaths[0]
     } else {
-        return "";
+        throw new Error("Выберите папку с игрой.")
     }
 }

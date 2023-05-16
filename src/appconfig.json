@@ -1,0 +1,9 @@
+{
+    "gamefiles_ftp": {
+        "host": "82.146.48.195",
+        "user": "launcher",
+        "password": "bX4pP1yM7s",
+        "directory": "/gamefiles",
+        "versions_manifest": "/gamefiles/versions.json"
+    }
+}

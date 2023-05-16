@@ -30,26 +30,26 @@ async function getNews() {
             "image": "https://img4.goodfon.com/wallpaper/nbig/a/b5/grand-theft-auto-v-gta-5-game-city-landscape.jpg",
             "title": "Мы открылись!",
             "description": "Открытие лучшего проекта в MTA!",
-            "type": "Обновление"
+            "type": "Обновление 1"
         },
         {
             "id": 1,
             "image": "https://img4.goodfon.com/wallpaper/nbig/a/b5/grand-theft-auto-v-gta-5-game-city-landscape.jpg",
             "title": "Мы открылись!",
             "description": "Открытие лучшего проекта в MTA!",
-            "type": "Обновление"
+            "type": "Обновление 2"
         },
         {
             "id": 2,
             "image": "https://img4.goodfon.com/wallpaper/nbig/a/b5/grand-theft-auto-v-gta-5-game-city-landscape.jpg",
             "title": "Мы открылись!",
             "description": "Открытие лучшего проекта в MTA!",
-            "type": "Обновление"
+            "type": "Обновление 3"
         }
     ];
     return news;
 }
-function newsContent() {
+function newsPage() {
     return (
         `
         <h1 id="trendy">актуальное</h1>
@@ -59,11 +59,23 @@ function newsContent() {
             <a><p>vk</p><img src="public/arrow.svg"></a>
             <a><p>telegram</p><img src="public/arrow.svg"></a>
         </div>
-
+        <div id="news-container" class="news">
+        </div>
         `
     );
 }
-function settingsContent() {
+function changeNews(news) {
+    let newsContainer = document.getElementById("news-container");
+    console.log(newsContainer)
+
+    newsContainer.innerHTML = 
+    `
+    <text>${news.type}</text>
+    <h1>${news.title}</h1>
+    <h2>${news.description}</h2>
+    `;
+}
+function settingsPage() {
     return (
         `
         <h1>настройки</h1>
@@ -73,24 +85,57 @@ function settingsContent() {
         <h2 id="game-path">путь до игры</h2>
         <p id="game-path-value">C:\\User\\program files\\gta derzhava</p>
         <button id="change-button" onclick="changePath()">Изменить</button>
-        <div class="settings">
-            <p><input type="checkbox" name="settings-checkbox">Заменять звуки</p>
-            <p><input type="checkbox" name="settings-checkbox">Заменять погоду</p>
-            <p><input type="checkbox" name="settings-checkbox">Заменять эффекты</p>
-            <p><input type="checkbox" name="settings-checkbox">Заменять текстуры эффектов</p>
-            <p><input type="checkbox" name="settings-checkbox">Заменять текстуры транспорта/p>
-            <p><input type="checkbox" name="settings-checkbox">Заменять оформление МТА</p>
-            <p><input type="checkbox" name="settings-checkbox">Заменять текстуры травы</p>     
+        <div class="settings" id="column-1">
+            <label class="checkbox-container"><p>Заменять звуки</p>
+                <input type="checkbox" checked="checked">
+                <span class="checkmark"></span>
+            </label>
+            <label class="checkbox-container"><p>Заменять погоду</p>
+                <input type="checkbox">
+                <span class="checkmark"></span>
+            </label>
+            <label class="checkbox-container"><p>Заменять текстуры транспорта</p>
+                <input type="checkbox">
+                <span class="checkmark"></span>
+            </label>
+            <label class="checkbox-container"><input type="checkbox"><p>Заменять текстуры эффектов</p>           
+                <span class="checkmark"></span>
+            </label>
+        </div>
+        <div class="settings" id="column-2">
+            <label class="checkbox-container"><input type="checkbox"><p>Заменять эффекты</p>          
+                <span class="checkmark"></span>
+            </label>
+            <label class="checkbox-container"><input type="checkbox"><p>Заменять оформление MTA</p>          
+                <span class="checkmark"></span>
+            </label>
+            <label class="checkbox-container"><input type="checkbox"><p>Заменять текстуры травы</p>
+                <span class="checkmark"></span>
+            </label>
         </div>
         `
     );
 }
-function changePage(selector) {
+async function changePage(selector) {
     let container = document.getElementById("changing-container");
+    let settingsSVG = document.getElementById("settings-svg");
+    let homeSVG1 = document.getElementById("home-svg-1");
+    let homeSVG2 = document.getElementById("home-svg-2");
+
     if (selector.value == "settings") {
-        container.innerHTML = settingsContent();
+        container.innerHTML = settingsPage();     
+        settingsSVG.style.fill = "#2E8DFF";
+        homeSVG1.style.fill = "#7C8792";
+        homeSVG2.style.fill = "#7C8792";
+        homeSVG2.style.stroke = "#7C8792";
     } else {
-        container.innerHTML = newsContent();
+        container.innerHTML = newsPage();
+        let news = await getNews();
+        changeNews(news[0]);
+        settingsSVG.style.fill = "#7C8792";    
+        homeSVG1.style.fill = "#2E8DFF";  
+        homeSVG2.style.fill = "#2E8DFF";
+        homeSVG2.style.stroke = "#2E8DFF";
     }
 }
 function oneServer(servers) {
@@ -103,7 +148,7 @@ function oneServer(servers) {
         <h4 name="players-1-5">${servers[0].players}/${servers[0].maxPlayers}</h4>
         <label name="state-label-1-5">Состояние</label>
         <img id="dot" name="state-dot-1-5" src="public/dot.svg">
-        <button name="play-1-5" onclick="window.electronAPI.playGame()">Играть</a>
+        <button name="play-1-5" onclick="window.electronAPI.connectToServer()">Играть</a>
     </div>
     `;
     //${servers[0].id}
@@ -112,5 +157,11 @@ async function changePath() {
     const filePath = await window.electronAPI.getDirectory()
     document.getElementById('game-path-value').innerText = filePath
 }
-serversUpdate();
+async function main(){
+    serversUpdate();
+    let news = await getNews();
+    changeNews(news[0]);
+}
+main();
+
 //setInterval(serversUpdate, 5000);

@@ -9,6 +9,10 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "@types/ftps": "^1.2.0",
     "electron": "^24.3.0"
+  },
+  "dependencies": {
+    "ftps": "^1.2.0"
   }
 }
