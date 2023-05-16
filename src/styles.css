@@ -446,6 +446,14 @@ input[type=button]:hover + img{
     line-height: 100%;
     color:#FFFFFF;
 }
+.news {
+    position: absolute;
+    top: 129px;
+    left: 30px;
+    width: 530px;
+    height: 386px;
+    border-radius: 10px;
+}
 .news text {
     font-style: normal;
     font-weight: 600;
@@ -462,7 +470,7 @@ input[type=button]:hover + img{
     white-space: normal;
     text-align: left;
     position: absolute;
-    top: 149px;
+    top: 20px;
     left: 20px;
 }
 .news h1 {
