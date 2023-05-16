@@ -103,7 +103,7 @@ function oneServer(servers) {
         <h4 name="players-1-5">${servers[0].players}/${servers[0].maxPlayers}</h4>
         <label name="state-label-1-5">Состояние</label>
         <img id="dot" name="state-dot-1-5" src="public/dot.svg">
-        <button name="play-1-5" onclick="window.electronAPI.playGame()">Играть</a>
+        <button name="play-1-5" onclick="window.electronAPI.connectToServer()">Играть</a>
     </div>
     `;
     //${servers[0].id}
