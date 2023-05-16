@@ -30,26 +30,26 @@ async function getNews() {
             "image": "https://img4.goodfon.com/wallpaper/nbig/a/b5/grand-theft-auto-v-gta-5-game-city-landscape.jpg",
             "title": "Мы открылись!",
             "description": "Открытие лучшего проекта в MTA!",
-            "type": "Обновление"
+            "type": "Обновление 1"
         },
         {
             "id": 1,
             "image": "https://img4.goodfon.com/wallpaper/nbig/a/b5/grand-theft-auto-v-gta-5-game-city-landscape.jpg",
             "title": "Мы открылись!",
             "description": "Открытие лучшего проекта в MTA!",
-            "type": "Обновление"
+            "type": "Обновление 2"
         },
         {
             "id": 2,
             "image": "https://img4.goodfon.com/wallpaper/nbig/a/b5/grand-theft-auto-v-gta-5-game-city-landscape.jpg",
             "title": "Мы открылись!",
             "description": "Открытие лучшего проекта в MTA!",
-            "type": "Обновление"
+            "type": "Обновление 3"
         }
     ];
     return news;
 }
-function newsContent() {
+function newsPage() {
     return (
         `
         <h1 id="trendy">актуальное</h1>
@@ -59,12 +59,23 @@ function newsContent() {
             <a><p>vk</p><img src="public/arrow.svg"></a>
             <a><p>telegram</p><img src="public/arrow.svg"></a>
         </div>
-        <div id="news">
+        <div id="news-container" class="news">
         </div>
         `
     );
 }
-function settingsContent() {
+function changeNews(news) {
+    let newsContainer = document.getElementById("news-container");
+    console.log(newsContainer)
+
+    newsContainer.innerHTML = 
+    `
+    <text>${news.type}</text>
+    <h1>${news.title}</h1>
+    <h2>${news.description}</h2>
+    `;
+}
+function settingsPage() {
     return (
         `
         <h1>настройки</h1>
@@ -105,21 +116,22 @@ function settingsContent() {
         `
     );
 }
-function changePage(selector) {
+async function changePage(selector) {
     let container = document.getElementById("changing-container");
     let settingsSVG = document.getElementById("settings-svg");
     let homeSVG1 = document.getElementById("home-svg-1");
     let homeSVG2 = document.getElementById("home-svg-2");
 
     if (selector.value == "settings") {
-        container.innerHTML = settingsContent();     
+        container.innerHTML = settingsPage();     
         settingsSVG.style.fill = "#2E8DFF";
         homeSVG1.style.fill = "#7C8792";
         homeSVG2.style.fill = "#7C8792";
         homeSVG2.style.stroke = "#7C8792";
-        
     } else {
-        container.innerHTML = newsContent();
+        container.innerHTML = newsPage();
+        let news = await getNews();
+        changeNews(news[0]);
         settingsSVG.style.fill = "#7C8792";    
         homeSVG1.style.fill = "#2E8DFF";  
         homeSVG2.style.fill = "#2E8DFF";
@@ -145,8 +157,11 @@ async function changePath() {
     const filePath = await window.electronAPI.getDirectory()
     document.getElementById('game-path-value').innerText = filePath
 }
-serversUpdate();
-let news = getNews();
-
+async function main(){
+    serversUpdate();
+    let news = await getNews();
+    changeNews(news[0]);
+}
+main();
 
 //setInterval(serversUpdate, 5000);
