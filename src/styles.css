@@ -86,6 +86,24 @@ img {
     border-radius: 15px;
 	user-select: none;
 }
+#settings-svg {
+    fill:rgba(180, 196, 213, 0.65);
+}
+#settings-icon {
+    margin-top: 15px;
+    margin-left: 15px;
+}
+#home-svg-1 {
+    fill:#2E8DFF;  
+}
+#home-svg-2 {
+    fill:#2E8DFF;
+    stroke: #2E8DFF;
+}
+#home-icon {
+    margin-top: 15px;
+    margin-left: 16px;
+}
 .page-selector img {
     padding: 15px;
 }

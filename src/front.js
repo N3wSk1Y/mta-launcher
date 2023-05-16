@@ -59,7 +59,8 @@ function newsContent() {
             <a><p>vk</p><img src="public/arrow.svg"></a>
             <a><p>telegram</p><img src="public/arrow.svg"></a>
         </div>
-
+        <div id="news">
+        </div>
         `
     );
 }
@@ -106,10 +107,23 @@ function settingsContent() {
 }
 function changePage(selector) {
     let container = document.getElementById("changing-container");
+    let settingsSVG = document.getElementById("settings-svg");
+    let homeSVG1 = document.getElementById("home-svg-1");
+    let homeSVG2 = document.getElementById("home-svg-2");
+
     if (selector.value == "settings") {
-        container.innerHTML = settingsContent();
+        container.innerHTML = settingsContent();     
+        settingsSVG.style.fill = "#2E8DFF";
+        homeSVG1.style.fill = "#7C8792";
+        homeSVG2.style.fill = "#7C8792";
+        homeSVG2.style.stroke = "#7C8792";
+        
     } else {
         container.innerHTML = newsContent();
+        settingsSVG.style.fill = "#7C8792";    
+        homeSVG1.style.fill = "#2E8DFF";  
+        homeSVG2.style.fill = "#2E8DFF";
+        homeSVG2.style.stroke = "#2E8DFF";
     }
 }
 function oneServer(servers) {
@@ -132,4 +146,7 @@ async function changePath() {
     document.getElementById('game-path-value').innerText = filePath
 }
 serversUpdate();
+let news = getNews();
+
+
 //setInterval(serversUpdate, 5000);
