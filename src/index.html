@@ -6,14 +6,14 @@
 <body>
     <div id="titlebar"></div>
     <div class="segment" id="left-selector">
-        <img id="logo"></img>
+        <img id="logo" src="public/logo.svg"></img>
         <div class="page-selector">
             <input id="selector-1" type="radio" name="selector" value="home" onchange="changePage(this)" checked>
             <label for="selector-1"><img id="home-icon" src="public/home.svg"></label>
         </div>       
         <div class="page-selector">
             <input id="selector-2" type="radio" name="selector" value="settings" onchange="changePage(this)">
-            <label for="selector-2"><img id="settings-icon" src="public/settings.svg"></label>
+            <label for="selector-2"><img id="settings-icon" src="public/settings.svg" for="selector-2"></label>
         </div>
     </div>
     <div class="segment" id="changing-container">

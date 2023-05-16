@@ -73,14 +73,33 @@ function settingsContent() {
         <h2 id="game-path">путь до игры</h2>
         <p id="game-path-value">C:\\User\\program files\\gta derzhava</p>
         <button id="change-button" onclick="changePath()">Изменить</button>
-        <div class="settings">
-            <p><input type="checkbox" name="settings-checkbox">Заменять звуки</p>
-            <p><input type="checkbox" name="settings-checkbox">Заменять погоду</p>
-            <p><input type="checkbox" name="settings-checkbox">Заменять эффекты</p>
-            <p><input type="checkbox" name="settings-checkbox">Заменять текстуры эффектов</p>
-            <p><input type="checkbox" name="settings-checkbox">Заменять текстуры транспорта/p>
-            <p><input type="checkbox" name="settings-checkbox">Заменять оформление МТА</p>
-            <p><input type="checkbox" name="settings-checkbox">Заменять текстуры травы</p>     
+        <div class="settings" id="column-1">
+            <label class="checkbox-container"><p>Заменять звуки</p>
+                <input type="checkbox" checked="checked">
+                <span class="checkmark"></span>
+            </label>
+            <label class="checkbox-container"><p>Заменять погоду</p>
+                <input type="checkbox">
+                <span class="checkmark"></span>
+            </label>
+            <label class="checkbox-container"><p>Заменять текстуры транспорта</p>
+                <input type="checkbox">
+                <span class="checkmark"></span>
+            </label>
+            <label class="checkbox-container"><input type="checkbox"><p>Заменять текстуры эффектов</p>           
+                <span class="checkmark"></span>
+            </label>
+        </div>
+        <div class="settings" id="column-2">
+            <label class="checkbox-container"><input type="checkbox"><p>Заменять эффекты</p>          
+                <span class="checkmark"></span>
+            </label>
+            <label class="checkbox-container"><input type="checkbox"><p>Заменять оформление MTA</p>          
+                <span class="checkmark"></span>
+            </label>
+            <label class="checkbox-container"><input type="checkbox"><p>Заменять текстуры травы</p>
+                <span class="checkmark"></span>
+            </label>
         </div>
         `
     );
