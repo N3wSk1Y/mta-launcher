@@ -19,7 +19,7 @@ const createWindow = () => {
 
     mainWindow.loadFile('src/index.html')
 
-    ipcMain.handle('playGame', async (event, args) => {
+    ipcMain.handle('connectToServer', async (event, args) => {
         gameFilesHandler.UpdateFiles()
         console.log("Updating...")
     })
@@ -45,17 +45,25 @@ app.on('window-all-closed', () => {
     }
 })
 
+process.on("uncaughtException", (err) => {
+    dialog.showMessageBoxSync({
+        type: "error",
+        title: "Произошла ошибка",
+        message: err.message
+    });
+    app.exit(1);
+});
+
 async function getDirectory (): Promise<string> {
     const { canceled, filePaths } = await dialog.showOpenDialog({
         title: "Выберите папку с игрой",
         properties: ["openDirectory"],
-        buttonLabel: "Выбрать папку",
-        defaultPath: "/Users/<username>/",
+        buttonLabel: "Выбрать папку"
     })
     if (!canceled) {
         console.log(filePaths[0])
         return filePaths[0]
     } else {
-        return "";
+        throw new Error("Выберите папку с игрой.")
     }
 }
