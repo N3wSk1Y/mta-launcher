@@ -1,6 +1,7 @@
 import { app, BrowserWindow, ipcMain, dialog } from 'electron';
 import * as path from "path";
-import {GameFilesHandler} from "./gamefileshandler/GameFilesHandler";
+import {GameFilesHandler} from "./entities/GameFilesHandler";
+const appconfig = require('./appconfig.json');
 
 const createWindow = () => {
     const mainWindow = new BrowserWindow({
@@ -27,7 +28,14 @@ const createWindow = () => {
     ipcMain.handle('getDirectory', getDirectory)
 }
 
-const gameFilesHandler = new GameFilesHandler("C:\\Users\\Dmitry\\WebstormProjects\\mta-launcher\\test_gamepath", -1)
+const gameFilesHandler = new GameFilesHandler("C:\\Users\\Dmitry\\WebstormProjects\\mta-launcher\\test_gamepath", -1, {
+    host: appconfig.gamefiles_ftp.host,
+    username: appconfig.gamefiles_ftp.user,
+    password: appconfig.gamefiles_ftp.password,
+    protocol: "ftp",
+    autoConfirm: true,
+    cwd: appconfig.gamefiles_ftp.directory
+})
 
 app.whenReady().then(() => {
     createWindow()
