@@ -25,6 +25,9 @@ const createWindow = () => {
     })
 
     ipcMain.handle('getDirectory', getDirectory)
+
+    ipcMain.on('closeApp', () => app.quit());
+    ipcMain.on('minimizeApp', () => mainWindow.minimize());
 }
 
 const gameFilesHandler = new GameFilesHandler("C:\\Users\\Dmitry\\WebstormProjects\\mta-launcher\\test_gamepath", -1)
