@@ -34,17 +34,17 @@ async function getNews() {
         },
         {
             "id": 1,
-            "image": "https://img4.goodfon.com/wallpaper/nbig/a/b5/grand-theft-auto-v-gta-5-game-city-landscape.jpg",
-            "title": "Мы открылись!",
-            "description": "Открытие лучшего проекта в MTA!",
-            "type": "Обновление 2"
+            "image": "https://images.stopgame.ru/news/2018/05/31/A6biPQ9eJKsJ6h.jpg",
+            "title": "Ахаха",
+            "description": "Деньги - это хорошо",
+            "type": "Ну допустим"
         },
         {
             "id": 2,
-            "image": "https://img4.goodfon.com/wallpaper/nbig/a/b5/grand-theft-auto-v-gta-5-game-city-landscape.jpg",
-            "title": "Мы открылись!",
-            "description": "Открытие лучшего проекта в MTA!",
-            "type": "Обновление 3"
+            "image": "https://images.stopgame.ru/news/2018/05/31/EY_6tpI.jpg",
+            "title": "Ещё какое-то название",
+            "description": "Очень лень придумывать текст",
+            "type": "Я чёт хз"
         }
     ];
     return news;
@@ -66,8 +66,7 @@ function newsPage() {
 }
 function changeNews(news) {
     let newsContainer = document.getElementById("news-container");
-    console.log(newsContainer)
-
+    newsContainer.style.background = `linear-gradient(0.92deg, rgba(0, 0, 0, 0.6) -10.51%, rgba(0, 0, 0, 0) 46.86%), url(${news.image})`;
     newsContainer.innerHTML = 
     `
     <text>${news.type}</text>
@@ -160,8 +159,10 @@ async function changePath() {
 async function main(){
     serversUpdate();
     let news = await getNews();
-    changeNews(news[0]);
+    changeNews(news[i]);
+    i++;
+    if (i > news.length - 1) i = 0;
 }
 main();
-
-//setInterval(serversUpdate, 5000);
+let i = 0;
+setInterval(main, 2000);
