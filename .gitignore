@@ -2,3 +2,5 @@
 /node_modules/
 *.js
 /test_gamepath/
+
+out/
