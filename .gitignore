@@ -1,4 +1,5 @@
-# Project exclude paths
 /node_modules/
-*.js
 /test_gamepath/
+/out/
+
+*.js
