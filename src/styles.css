@@ -431,20 +431,112 @@ button:hover {
 input[type=button]:hover + img{
     filter: brightness(50%);
 }
-#tick {
+#update-status-ok-img {
     position: absolute;
     left: 34.5px;
     bottom: 58px;
 }
-#update-status {
+#update-status-warning-img {
+    position: absolute;
+    left: 34.5px;
+    bottom: 54px;
+}
+#update-status-ok {
     position: absolute;
     left: 74px;
-    top: 37px;
+    bottom: 40px;
+}
+#update-status-warning {
+    position: absolute;
+    left: 74px;
+    bottom: 49px;
+}
+#download {
+    position: absolute;
+    left: 375px;
+    bottom: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 17.5px 52.5px;
+    gap: 6.09px;
+    background: #2E8DFF;
+    color: #FFFFFF;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 100%;
+    border-radius: 10px;
+}
+h4 {
     font-style: normal;
     font-weight: 700;
     font-size: 14px;
     line-height: 100%;
     color:#FFFFFF;
+    margin: 0px;
+}
+h5 {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 100%;
+    color: rgba(180, 196, 213, 0.65);
+    margin: 0px;
+}
+#update-status-warning-description {
+    position: absolute;
+    left: 74px;
+    bottom: 31px;
+}
+#update-in-progress-file {
+    position: absolute;
+    left: 30px;
+    top: 33px;
+}
+#update-in-progress-speed {
+    position: absolute;
+    left: 30px;
+    top: 79px;
+}
+#update-progress-bar-outline {
+    position: absolute;
+    left: 30px;
+    top: 63px;
+    width: 355px;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 19px;
+}
+#update-progress-bar {
+    background: #2E8DFF;
+    height: 6px;
+    border-radius: 19px;
+}
+#update-in-progress-progress {
+    position: absolute;
+    left: 365px;
+    top: 79px;
+}
+#pause {
+    position: absolute;
+    left: 410px;
+    top: 35.5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 17.5px 52.5px;
+    gap: 6.09px;
+    background: #2E8DFF;
+    color: #FFFFFF;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 100%;
+    border-radius: 10px;
+    width: 150px;
 }
 .news {
     position: absolute;
