@@ -27,20 +27,13 @@ async function getNews() {
     let news = [
         {
             "id": 0,
-            "image": "https://img4.goodfon.com/wallpaper/nbig/a/b5/grand-theft-auto-v-gta-5-game-city-landscape.jpg",
-            "title": "Мы открылись!",
-            "description": "Открытие лучшего проекта в MTA!",
-            "type": "Обновление 1"
-        },
-        {
-            "id": 1,
             "image": "https://images.stopgame.ru/news/2018/05/31/A6biPQ9eJKsJ6h.jpg",
             "title": "Ахаха",
             "description": "Деньги - это хорошо",
             "type": "Ну допустим"
         },
         {
-            "id": 2,
+            "id": 1,
             "image": "https://images.stopgame.ru/news/2018/05/31/EY_6tpI.jpg",
             "title": "Ещё какое-то название",
             "description": "Очень лень придумывать текст",
@@ -156,6 +149,28 @@ async function changePath() {
     const filePath = await window.electronAPI.getDirectory()
     document.getElementById('game-path-value').innerText = filePath
 }
+function updateWarning() {
+    return (
+    `
+    <img src="public/warning.svg" id="update-status-warning-img">
+    <h4 id="update-status-warning">Требуется обновление!</h4>
+    <h5 id="update-status-warning-description">Установите обновление для игры на проекте</h5>
+    <button id="download">Установить</button>
+    `);
+}
+function updateInProgress(fileName, speed, progress) {
+    return (
+        `
+        <h4 id="update-in-progress-file">${fileName}</h4>
+        <div id="update-progress-bar-outline"><div id="update-progress-bar" style="width: ${progress/100*355}px"></div></div>
+        <h5 id="update-in-progress-speed">Скорость: ${speed}%</h5>
+        <h5 id="update-in-progress-progress">${progress}%</h5>
+        <button id="pause">Пауза</button>
+        `);
+}
+function updates() {
+    document.getElementById("update-container").innerHTML = updateInProgress("cards.dds", "8 МБ/С", 15);
+}
 async function main(){
     serversUpdate();
     let news = await getNews();
@@ -164,5 +179,6 @@ async function main(){
     if (i > news.length - 1) i = 0;
 }
 main();
+updates();
 let i = 0;
 setInterval(main, 2000);
