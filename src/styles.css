@@ -306,7 +306,7 @@ h2 {
 }
 .server h4[name=players-1-5] {
     left: 20px;
-    bottom: 7.5px;
+    bottom: 25.5px;
 }
 .server label[name=online-label-1-5] {
     left: 20px;
@@ -398,35 +398,35 @@ button:hover {
     position: absolute;
     right: 15px;
     top: 10px;
-    width: 20px;
-    height: 20px;
+    width: 30px;
+    height: 30px;
 }
 #close-btn {
     display: none;
-    width: 20px;
-    height: 20px;
+    width: 30px;
+    height: 30px;
 }
 #close-img {
     position: absolute;
-    right: 4px;
-    top: 4px;
+    right: 9px;
+    top: 9px;
 }
 #minimize-label {
     position: absolute;
     right: 45px;
     top: 11px;
-    width: 20px;
-    height: 20px;
+    width: 30px;
+    height: 30px;
 }
 #minimize-btn {
     display: none;
-    width: 20px;
-    height: 20px;
+    width: 30px;
+    height: 30px;
 }
 #minimize-img {
     position: absolute;
-    right: 5px;
-    top:9px;
+    right: 10px;
+    top:14px;
 }
 input[type=button]:hover + img{
     filter: brightness(50%);
@@ -583,4 +583,20 @@ h5 {
     text-transform: none;
     margin-top: 10px;
     margin-left: 20px;
+}
+.news a {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+    width: 34px;
+    height: 34px;
+
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 39px;
 }
