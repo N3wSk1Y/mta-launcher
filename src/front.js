@@ -1,5 +1,3 @@
-// import { newsContent } from "/pages/news.js";
-
 const apiPath = "https://mta-launcher.free.beeceptor.com/";
 
 async function makeRequest(url) {  
@@ -65,6 +63,7 @@ function changeNews(news) {
     <text>${news.type}</text>
     <h1>${news.title}</h1>
     <h2>${news.description}</h2>
+    <a id="news-link"><img id="news-link-img" src="public/arrow-right.svg"></a>
     `;
 }
 function settingsPage() {
@@ -181,4 +180,4 @@ async function main(){
 main();
 updates();
 let i = 0;
-setInterval(main, 2000);
+// setInterval(main, 2000);
