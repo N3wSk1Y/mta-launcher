@@ -1,5 +1,3 @@
-// import { newsContent } from "/pages/news.js";
-
 const apiPath = "https://mta-launcher.free.beeceptor.com/";
 
 async function makeRequest(url) {  
