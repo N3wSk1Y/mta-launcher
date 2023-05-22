@@ -606,3 +606,9 @@ h5 {
     background: rgba(255, 255, 255, 0.15);
     border-radius: 39px;
 }
+.dots {
+    width: 5px;
+    height: 5px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.1);
+}

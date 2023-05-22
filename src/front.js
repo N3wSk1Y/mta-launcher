@@ -55,7 +55,7 @@ function newsPage() {
         `
     );
 }
-function changeNews(news) {
+function changeNews(news, length) {
     let newsContainer = document.getElementById("news-container");
     newsContainer.style.background = `linear-gradient(0.92deg, rgba(0, 0, 0, 0.6) -10.51%, rgba(0, 0, 0, 0) 46.86%), url(${news.image})`;
     newsContainer.innerHTML = 
@@ -64,7 +64,11 @@ function changeNews(news) {
     <h1>${news.title}</h1>
     <h2>${news.description}</h2>
     <a id="news-link"><img id="news-link-img" src="public/arrow-right.svg"></a>
-    `;
+    `
+    ;
+    for (let i = 0; i < length; i++)
+        document.getElementById("changing-container").innerHTML += `<div class="dots"></div>`;
+
 }
 function settingsPage() {
     return (
@@ -154,7 +158,7 @@ function updateWarning() {
     <img src="public/warning.svg" id="update-status-warning-img">
     <h4 id="update-status-warning">Требуется обновление!</h4>
     <h5 id="update-status-warning-description">Установите обновление для игры на проекте</h5>
-    <button id="download">Установить</button>
+    <button id="download" onclick="window.electronAPI.updateGameFiles()">Установить</button>
     `);
 }
 function updateInProgress(fileName, speed, progress) {
@@ -178,7 +182,7 @@ function updateOK() {
 async function main(){
     serversUpdate();
     let news = await getNews();
-    changeNews(news[i]);
+    changeNews(news[i], news.length);
     i++;
     if (i > news.length - 1) i = 0;
 }
@@ -199,7 +203,6 @@ async function updates(state) {
 }
 main();
 serversUpdate();
-updates(0);
 let i = 0;
 // setInterval(main, 2000);
 
