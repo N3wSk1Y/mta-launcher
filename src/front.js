@@ -187,6 +187,8 @@ async function updates(state) {
     switch (state) {
         case 0:
             document.getElementById("update-container").innerHTML = updateWarning();
+            document.getElementsByName("play-1-5")[0].disabled = true;
+            console.log(document.getElementsByName("play-1-5"));
             break;
         case 1:
             document.getElementById("update-container").innerHTML = updateInProgress("your.mom", 4, 45);
@@ -196,9 +198,9 @@ async function updates(state) {
             break;
     }
 }
-//main();
-updates(2);
-let i = 0;
+main();
+serversUpdate();
+updates(0);
 // setInterval(main, 2000);
 
 window.electronAPI.changeStatus(async (event, value) => {

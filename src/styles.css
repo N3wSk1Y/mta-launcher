@@ -304,6 +304,12 @@ h2 {
     left: 175px;
     bottom: 20px;
 }
+.server button[name=play-1-5]:disabled:hover {
+    filter: none;
+}
+.server button[name=play-1-5]:disabled {
+    opacity: 0.5;
+}
 .server h4[name=players-1-5] {
     left: 20px;
     bottom: 25.5px;
@@ -449,7 +455,7 @@ input[type=button]:hover + img{
 #update-status-warning {
     position: absolute;
     left: 74px;
-    bottom: 49px;
+    bottom: 69px;
 }
 #download {
     position: absolute;
@@ -488,7 +494,7 @@ h5 {
 #update-status-warning-description {
     position: absolute;
     left: 74px;
-    bottom: 31px;
+    bottom: 51px;
 }
 #update-in-progress-file {
     position: absolute;
