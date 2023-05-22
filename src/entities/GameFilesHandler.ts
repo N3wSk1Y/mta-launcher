@@ -31,17 +31,19 @@ export class GameFilesHandler {
         this.versionsManifest = JSON.parse(versionsManifest);
     }
 
-    public async UpdateGameFiles(): Promise<void> {
+    public async IsActualVersion(): Promise<boolean> {
         await this.GetVersionsManifest();
-        if (this.versionsManifest.current_version != this.currentVersion) {
-            const actual_version = this.versionsManifest.versions.filter((el: { id: number; }) => el.id === this.versionsManifest.current_version)[0]
-            await HTTPClient.Download(path.join(appconfig.gamefiles.files_url, actual_version.path), path.join(configManager.getData("gamefilesDirectory"), "gamefiles.zip"), async () => {
-                await this.DecompressGameFiles()
-                fs.unlink(path.join(configManager.getData("gamefilesDirectory"), "gamefiles.zip"), () => {})
-            })
-            this._currentVersion = this.versionsManifest.current_version;
-            configManager.setData("installed_version", this.currentVersion);
-        }
+        return this.versionsManifest.current_version != this.currentVersion;
+    }
+
+    public async UpdateGameFiles(): Promise<void> {
+        const actual_version = this.versionsManifest.versions.filter((el: { id: number; }) => el.id === this.versionsManifest.current_version)[0]
+        await HTTPClient.Download(path.join(appconfig.gamefiles.files_url, actual_version.path), path.join(configManager.getData("gamefilesDirectory"), "gamefiles.zip"), async () => {
+            await this.DecompressGameFiles()
+            fs.unlink(path.join(configManager.getData("gamefilesDirectory"), "gamefiles.zip"), () => {})
+        })
+        this._currentVersion = this.versionsManifest.current_version;
+        configManager.setData("installed_version", this.currentVersion);
     }
 
     private async DecompressGameFiles(): Promise<void> {

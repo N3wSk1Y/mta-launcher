@@ -200,3 +200,8 @@ async function updates(state) {
 updates(2);
 let i = 0;
 // setInterval(main, 2000);
+
+window.electronAPI.changeStatus(async (event, value) => {
+    await updates(value)
+    event.sender.send('changeStatus', value)
+})
