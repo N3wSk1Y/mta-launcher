@@ -213,8 +213,10 @@ window.electronAPI.changeStatus(async (event, value) => {
 
 window.electronAPI.syncGamePath(async (event, value) => {
     const path = value;
+    document.getElementById("game-path-value").textContent = path;
 })
 
 window.electronAPI.syncBetaKey(async (event, value) => {
     const betaKey = value;
+    document.getElementById("beta-key-value").textContent = betaKey;
 })
