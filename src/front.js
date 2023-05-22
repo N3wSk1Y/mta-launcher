@@ -154,7 +154,7 @@ function oneServer(servers) {
         <label name="online-label-1-5">Онлайн</label>
         <h4 name="players-1-5">${servers[0].players}/${servers[0].maxPlayers}</h4>
         <label name="state-label-1-5">Состояние</label>
-        <img id="dot" name="state-dot-1-5" src="public/dot.svg">
+        <div id="dot" name="state-dot-1-5"></div>
         <button name="play-1-5" onclick="window.electronAPI.connectToServer()">Играть</a>
     </div>
     `;
@@ -203,21 +203,24 @@ async function updates(state) {
         case 0:
             document.getElementById("update-container").innerHTML = updateWarning();
             document.getElementsByName("play-1-5")[0].disabled = true;
+            document.getElementById("dot").style = "background-color: #F96363";
             break;
         case 1:
             document.getElementById("update-container").innerHTML = updateInProgress("your.mom", 4, 45);
             document.getElementsByName("play-1-5")[0].disabled = true;
+            document.getElementById("dot").style = "background-color: #F96363";
             break;
         case 2:
             document.getElementById("update-container").innerHTML = updateOK();
             document.getElementsByName("play-1-5")[0].disabled = false;
+            document.getElementById("dot").style = "background-color: #83EE87";
             break;
     }
 }
 main();
-serversUpdate();
+updates(2);
 let i = 0;
-setInterval(main, 2000);
+//setInterval(main, 5000);
 
 window.electronAPI.changeStatus(async (event, value) => {
     await updates(value)
