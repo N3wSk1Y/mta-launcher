@@ -162,13 +162,18 @@ function updateInProgress(fileName, speed, progress) {
         `
         <h4 id="update-in-progress-file">${fileName}</h4>
         <div id="update-progress-bar-outline"><div id="update-progress-bar" style="width: ${progress/100*355}px"></div></div>
-        <h5 id="update-in-progress-speed">Скорость: ${speed}%</h5>
+        <h5 id="update-in-progress-speed">Скорость: ${speed} МБ/С</h5>
         <h5 id="update-in-progress-progress">${progress}%</h5>
         <button id="pause">Пауза</button>
         `);
 }
-function updates() {
-    document.getElementById("update-container").innerHTML = updateInProgress("cards.dds", "8 МБ/С", 15);
+function updateOK() {
+    return (
+        `
+        <img src="public/tick.svg" id="update-status-ok-img">
+        <h4 id="update-status-ok">Установлена последния версия игры</h4>
+        `
+    );
 }
 async function main(){
     serversUpdate();
@@ -176,8 +181,21 @@ async function main(){
     changeNews(news[i]);
     i++;
     if (i > news.length - 1) i = 0;
+    getState();
 }
-main();
-updates();
+async function updates(state) {
+    switch (state) {
+        case 0:
+            document.getElementById("update-container").innerHTML = updateWarning();
+            break;
+        case 1:
+            document.getElementById("update-container").innerHTML = updateInProgress("your.mom", 4, 45);
+            break;
+        case 2:
+            document.getElementById("update-container").innerHTML = updateOK();
+    }
+}
+//main();
+//updates();
 let i = 0;
 // setInterval(main, 2000);
