@@ -12,16 +12,17 @@ export class HTTPClient {
         })
     }
 
-    public static async Download(url: string, fileName: string, callback: CallableFunction): Promise<any> {
+    public static async Download(url: string, fileName: string, duringDownloadCallback: CallableFunction, callback: CallableFunction): Promise<any> {
         const file = fs.createWriteStream(fileName);
         http.get(url, function(response) {
             const length = parseInt(<string>response.headers['content-length'], 10);
             const total = length / 1048576;
             let current = 0;
             response.pipe(file);
-            response.on("data", (chunk) => {
+            response.on("data", async (chunk) => {
                 current += chunk.length;
-                console.log(`Downloading: ${(100.0 * current / length).toFixed(2)}%`)
+                await duringDownloadCallback("Загрузка...", 100.0 * current / length)
+                // console.log(`Downloading: ${(100.0 * current / length).toFixed(2)}%`)
             });
             file.on('finish', () => {
                 return new Promise(async () => {
