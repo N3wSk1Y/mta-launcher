@@ -193,9 +193,10 @@ async function updates(state) {
             break;
         case 2:
             document.getElementById("update-container").innerHTML = updateOK();
+            break;
     }
 }
 //main();
-//updates();
+updates(2);
 let i = 0;
 // setInterval(main, 2000);
