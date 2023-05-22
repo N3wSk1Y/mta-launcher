@@ -181,7 +181,6 @@ async function main(){
     changeNews(news[i]);
     i++;
     if (i > news.length - 1) i = 0;
-    getState();
 }
 async function updates(state) {
     switch (state) {
@@ -201,6 +200,7 @@ async function updates(state) {
 main();
 serversUpdate();
 updates(0);
+let i = 0;
 // setInterval(main, 2000);
 
 window.electronAPI.changeStatus(async (event, value) => {
