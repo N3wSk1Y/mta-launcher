@@ -26,9 +26,13 @@ const createWindow = () => {
     mainWindow.loadFile('src/index.html')
 
     ipcMain.handle('connectToServer', async (event, args) => {
-        await gameFilesHandler.UpdateGameFiles()
+        if (await gameFilesHandler.IsActualVersion())
+            mainWindow.webContents.send('changeStatus', 1)
+        else
+            mainWindow.webContents.send('changeStatus', 0)
     })
     ipcMain.handle('getDirectory', getDirectory)
+
     ipcMain.on('closeApp', () => app.quit());
     ipcMain.on('minimizeApp', () => mainWindow.minimize());
 }
@@ -65,7 +69,7 @@ async function getDirectory (): Promise<string> {
         buttonLabel: "Выбрать папку"
     })
     if (!canceled) {
-        console.log(filePaths[0])
+        configManager.setData("gamefilesDirectory", filePaths[0])
         return filePaths[0]
     } else {
         throw new Error("Выберите папку с игрой.")
