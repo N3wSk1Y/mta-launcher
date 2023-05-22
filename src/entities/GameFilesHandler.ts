@@ -16,7 +16,7 @@ export class GameFilesHandler {
 
     public constructor(gamePath: string, currentVersion: number) {
         this.gamePath = gamePath;
-        this._currentVersion = currentVersion;
+        this._currentVersion = configManager.getData("installed_version") | currentVersion;
         this.GetVersionsManifest()
     }
 
