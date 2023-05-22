@@ -210,3 +210,11 @@ window.electronAPI.changeStatus(async (event, value) => {
     await updates(value)
     event.sender.send('changeStatus', value)
 })
+
+window.electronAPI.syncGamePath(async (event, value) => {
+    const path = value;
+})
+
+window.electronAPI.syncBetaKey(async (event, value) => {
+    const betaKey = value;
+})

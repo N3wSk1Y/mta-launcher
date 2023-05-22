@@ -27,14 +27,20 @@ const createWindow = () => {
 
     ipcMain.handle('connectToServer', async (event, args) => {
         if (await gameFilesHandler.IsActualVersion())
-            mainWindow.webContents.send('changeStatus', 1)
+            mainWindow.webContents.send('changeStatus', 2)
         else
             mainWindow.webContents.send('changeStatus', 0)
     })
+    ipcMain.handle('updateGameFiles', async () => {
+        mainWindow.webContents.send('changeStatus', 1)
+        await gameFilesHandler.UpdateGameFiles()
+    })
     ipcMain.handle('getDirectory', getDirectory)
-
     ipcMain.on('closeApp', () => app.quit());
     ipcMain.on('minimizeApp', () => mainWindow.minimize());
+
+    mainWindow.webContents.send('syncGamePath', configManager.getData("gamefilesDirectory"))
+    mainWindow.webContents.send('syncBetaKey', configManager.getData("beta_key"))
 }
 
 app.whenReady().then(() => {
