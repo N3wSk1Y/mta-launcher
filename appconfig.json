@@ -1,0 +1,9 @@
+{
+    "app": {
+        "config_filename": "config.json"
+    },
+    "gamefiles": {
+        "files_url": "http://mirror.gtaderzhava.ru/gameFiles/",
+        "versions_manifest_url": "http://mirror.gtaderzhava.ru/gameFiles/versions.json"
+    }
+}
