@@ -36,6 +36,13 @@ async function getNews() {
             "title": "Ещё какое-то название",
             "description": "Очень лень придумывать текст",
             "type": "Я чёт хз"
+        },
+        {
+            "id": 2,
+            "image": "https://phonoteka.org/uploads/posts/2021-05/1621643036_27-phonoteka_org-p-zadnii-fon-mta-28.jpg",
+            "title": "О да",
+            "description": "Жопа",
+            "type": "Жопа жопная зажептала"
         }
     ];
     return news;
@@ -52,6 +59,7 @@ function newsPage() {
         </div>
         <div id="news-container" class="news">
         </div>
+        <div id="dots"></div>
         `
     );
 }
@@ -66,8 +74,12 @@ function changeNews(news, length) {
     <a id="news-link"><img id="news-link-img" src="public/arrow-right.svg"></a>
     `
     ;
-    for (let i = 0; i < length; i++)
-        document.getElementById("changing-container").innerHTML += `<div class="dots"></div>`;
+    document.getElementById("dots").innerHTML = "";
+    for (let i = 0; i < length; i++) 
+    {
+        document.getElementById("dots").innerHTML += `<div class="dots" id="dot${i}"></div>`;
+        if (i == news.id) document.getElementById("dot" + i).style = `width: 20px; background: #FFFFFF`;
+    }
 
 }
 function settingsPage() {
@@ -126,7 +138,7 @@ async function changePage(selector) {
     } else {
         container.innerHTML = newsPage();
         let news = await getNews();
-        changeNews(news[0]);
+        changeNews(news[i], news.length);
         settingsSVG.style.fill = "#7C8792";    
         homeSVG1.style.fill = "#2E8DFF";  
         homeSVG2.style.fill = "#2E8DFF";
@@ -191,11 +203,10 @@ async function updates(state) {
         case 0:
             document.getElementById("update-container").innerHTML = updateWarning();
             document.getElementsByName("play-1-5")[0].disabled = true;
-            console.log(document.getElementsByName("play-1-5"));
             break;
         case 1:
             document.getElementById("update-container").innerHTML = updateInProgress("your.mom", 4, 45);
-            document.getElementsByName("play-1-5")[0].disabled = false;
+            document.getElementsByName("play-1-5")[0].disabled = true;
             break;
         case 2:
             document.getElementById("update-container").innerHTML = updateOK();
@@ -206,7 +217,7 @@ async function updates(state) {
 main();
 serversUpdate();
 let i = 0;
-// setInterval(main, 2000);
+setInterval(main, 2000);
 
 window.electronAPI.changeStatus(async (event, value) => {
     await updates(value)
