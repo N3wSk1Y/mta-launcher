@@ -195,9 +195,11 @@ async function updates(state) {
             break;
         case 1:
             document.getElementById("update-container").innerHTML = updateInProgress("your.mom", 4, 45);
+            document.getElementsByName("play-1-5")[0].disabled = false;
             break;
         case 2:
             document.getElementById("update-container").innerHTML = updateOK();
+            document.getElementsByName("play-1-5")[0].disabled = false;
             break;
     }
 }
