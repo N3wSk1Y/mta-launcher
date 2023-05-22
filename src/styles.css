@@ -298,6 +298,10 @@ h2 {
     border-radius: 15px;
 }
 #dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: #83EE87;
     position: absolute;
 }
 .server button[name=play-1-5] {
@@ -326,9 +330,9 @@ h2 {
     left: 192px;
     bottom: 89px;
 }
-.server img[name=state-dot-1-5] {
-    left: 168px;
-    bottom: 81.5px;
+.server div[name=state-dot-1-5] {
+    left: 175px;
+    bottom: 91.5px;
 }
 #beta-key-value {
     margin-left: 30px;
