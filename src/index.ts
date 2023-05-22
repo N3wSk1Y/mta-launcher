@@ -1,7 +1,11 @@
 import { app, BrowserWindow, ipcMain, dialog } from 'electron';
 import * as path from "path";
 import {GameFilesHandler} from "./entities/GameFilesHandler";
-const appconfig = require('./appconfig.json');
+import {ConfigManager} from "./entities/ConfigManager";
+
+const appconfig = require('../appconfig.json');
+export const configManager = new ConfigManager();
+export const gameFilesHandler = new GameFilesHandler("C:\\Users\\Dmitry\\WebstormProjects\\mta-launcher\\test_gamepath", -1)
 
 const createWindow = () => {
     const mainWindow = new BrowserWindow({
@@ -13,6 +17,7 @@ const createWindow = () => {
         frame: false,
         autoHideMenuBar: true,
         webPreferences: {
+            devTools: false,
             preload: path.join(__dirname, 'preload.js'),
             nodeIntegration: true
         }
@@ -21,21 +26,12 @@ const createWindow = () => {
     mainWindow.loadFile('src/index.html')
 
     ipcMain.handle('connectToServer', async (event, args) => {
-        gameFilesHandler.UpdateFiles()
-        console.log("Updating...")
+        await gameFilesHandler.UpdateGameFiles()
     })
-
     ipcMain.handle('getDirectory', getDirectory)
+    ipcMain.on('closeApp', () => app.quit());
+    ipcMain.on('minimizeApp', () => mainWindow.minimize());
 }
-
-const gameFilesHandler = new GameFilesHandler("C:\\Users\\Dmitry\\WebstormProjects\\mta-launcher\\test_gamepath", -1, {
-    host: appconfig.gamefiles_ftp.host,
-    username: appconfig.gamefiles_ftp.user,
-    password: appconfig.gamefiles_ftp.password,
-    protocol: "ftp",
-    autoConfirm: true,
-    cwd: appconfig.gamefiles_ftp.directory
-})
 
 app.whenReady().then(() => {
     createWindow()

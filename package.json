@@ -1,26 +1,30 @@
 {
-  "name": "mta-launcher",
-  "version": "1.0.0",
-  "main": "src/index.js",
-  "scripts": {
-    "start": "electron-forge start",
-    "package": "electron-forge package",
-    "make": "electron-forge make"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "MIT",
-  "devDependencies": {
-    "@electron-forge/cli": "^6.1.1",
-    "@electron-forge/maker-deb": "^6.1.1",
-    "@electron-forge/maker-rpm": "^6.1.1",
-    "@electron-forge/maker-squirrel": "^6.1.1",
-    "@electron-forge/maker-zip": "^6.1.1",
-    "@types/ftps": "^1.2.0",
-    "electron": "^24.3.0"
-  },
-  "dependencies": {
-    "electron-squirrel-startup": "^1.0.0",
-    "ftps": "^1.2.0"
-  }
+    "name": "mta-launcher",
+    "version": "1.0.0",
+    "main": "src/index.js",
+    "scripts": {
+        "start": "electron-forge start",
+        "package": "electron-forge package",
+        "make": "electron-forge make"
+    },
+    "author": "N3wSk1Y",
+    "license": "MIT",
+    "devDependencies": {
+        "@electron-forge/cli": "^6.1.1",
+        "@electron-forge/maker-deb": "^6.1.1",
+        "@electron-forge/maker-rpm": "^6.1.1",
+        "@electron-forge/maker-squirrel": "^6.1.1",
+        "@electron-forge/maker-zip": "^6.1.1",
+        "@types/decompress": "^4.2.4",
+        "@types/ftps": "^1.2.0",
+        "@types/got": "^9.6.12",
+        "@types/request": "^2.48.8",
+        "electron": "^24.3.0"
+    },
+    "dependencies": {
+        "decompress": "^4.2.1",
+        "decompress-unzip": "^4.0.1",
+        "electron-squirrel-startup": "^1.0.0",
+        "request": "^2.88.2"
+    }
 }
