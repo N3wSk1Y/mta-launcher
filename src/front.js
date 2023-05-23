@@ -87,10 +87,10 @@ function settingsPage() {
         `
         <h1>настройки</h1>
         <h2 id="beta-key">бета ключ</h2>
-        <input type="text" id="beta-key-value">
+        <input type="text" id="beta-key-value">${betaKey}</input>
         <button id="save-button">Cохранить</button>
         <h2 id="game-path">путь до игры</h2>
-        <p id="game-path-value">C:\\User\\program files\\gta derzhava</p>
+        <p id="game-path-value">${path}</p>
         <button id="change-button" onclick="changePath()">Изменить</button>
         <div class="settings" id="column-1">
             <label class="checkbox-container"><p>Заменять звуки</p>
@@ -204,22 +204,23 @@ async function updates(state) {
         case 0:
             document.getElementById("update-container").innerHTML = updateWarning();
             document.getElementsByName("play-1-5")[0].disabled = true;
-            document.getElementById("dot").style = "background-color: #F96363";
             break;
         case 1:
             document.getElementById("update-container").innerHTML = updateInProgress();
             document.getElementsByName("play-1-5")[0].disabled = true;
-            document.getElementById("dot").style = "background-color: #F96363";
+            //document.getElementById("dot").style = "background-color: #F96363";
             break;
         case 2:
             document.getElementById("update-container").innerHTML = updateOK();
             document.getElementsByName("play-1-5")[0].disabled = false;
-            document.getElementById("dot").style = "background-color: #83EE87";
+            //document.getElementById("dot").style = "background-color: #83EE87";
             break;
     }
 }
 let updateState = 2;
 let i = 0;
+let betaKey = "";
+let path = "";
 main();
 //updates(1);
 
@@ -231,12 +232,12 @@ window.electronAPI.changeStatus(async (event, value) => {
 })
 
 window.electronAPI.syncGamePath(async (event, value) => {
-    const path = value;
+    path = value;
     document.getElementById("game-path-value").textContent = path;
 })
 
 window.electronAPI.syncBetaKey(async (event, value) => {
-    const betaKey = value;
+    betaKey = value;
     document.getElementById("beta-key-value").textContent = betaKey;
 })
 
