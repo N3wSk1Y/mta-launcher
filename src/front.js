@@ -26,23 +26,23 @@ async function getNews() {
         {
             "id": 0,
             "image": "https://images.stopgame.ru/news/2018/05/31/A6biPQ9eJKsJ6h.jpg",
-            "title": "Ахаха",
-            "description": "Деньги - это хорошо",
-            "type": "Ну допустим"
+            "title": "Ещё какое-то название",
+            "description": "Очень лень придумывать текст",
+            "type": "Новость"
         },
         {
             "id": 1,
             "image": "https://images.stopgame.ru/news/2018/05/31/EY_6tpI.jpg",
             "title": "Ещё какое-то название",
             "description": "Очень лень придумывать текст",
-            "type": "Я чёт хз"
+            "type": "Обновление"
         },
         {
             "id": 2,
             "image": "https://phonoteka.org/uploads/posts/2021-05/1621643036_27-phonoteka_org-p-zadnii-fon-mta-28.jpg",
-            "title": "О да",
-            "description": "Жопа",
-            "type": "Жопа жопная зажептала"
+            "title": "Ещё какое-то название",
+            "description": "Тест",
+            "type": "Обновление"
         }
     ];
     return news;
@@ -239,9 +239,4 @@ window.electronAPI.syncGamePath(async (event, value) => {
 window.electronAPI.syncBetaKey(async (event, value) => {
     betaKey = value;
     document.getElementById("beta-key-value").textContent = betaKey;
-})
-
-window.electronAPI.handleDownloading(async (event, value) => {
-    console.log("value: " + value)
-    updateInProgress("Загрузка...", 25, value)
 })

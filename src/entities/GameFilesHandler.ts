@@ -33,15 +33,13 @@ export class GameFilesHandler {
     }
 
     public IsActualVersion(): boolean {
+        console.log(this.versionsManifest.current_version + " " + this.currentVersion)
         return this.versionsManifest.current_version == this.currentVersion;
     }
 
     public async UpdateGameFiles(callback: CallableFunction): Promise<void> {
         const actual_version = this.versionsManifest.versions.filter((el: { id: number; }) => el.id === this.versionsManifest.current_version)[0]
         await HTTPClient.Download(path.join(appconfig.gamefiles.files_url, actual_version.path), path.join(configManager.getData("gamefilesDirectory"), "gamefiles.zip"), async (fileName: string, progress: number) => {
-            mainWindow.webContents.on('did-finish-load',  () => {
-                mainWindow.webContents.send('handleDownloading', { fileName, progress })
-            })
         },async () => {
             await this.DecompressGameFiles()
             fs.unlink(path.join(configManager.getData("gamefilesDirectory"), "gamefiles.zip"), () => {
@@ -53,7 +51,6 @@ export class GameFilesHandler {
     }
 
     private async DecompressGameFiles(): Promise<void> {
-        mainWindow.webContents.send('handleDownloading', 100)
         await decompress(path.join(configManager.getData("gamefilesDirectory"), "gamefiles.zip"), configManager.getData("gamefilesDirectory"),
         {
             plugins: [
