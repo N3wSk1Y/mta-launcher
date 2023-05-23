@@ -173,14 +173,13 @@ function updateWarning() {
     <button id="download" onclick="window.electronAPI.updateGameFiles()">Установить</button>
     `);
 }
-function updateInProgress(fileName, speed, progress) {
+function updateInProgress() {
     return (
         `
-        <h4 id="update-in-progress-file">${fileName}</h4>
-        <div id="update-progress-bar-outline"><div id="update-progress-bar" style="width: ${progress/100*355}px"></div></div>
-        <h5 id="update-in-progress-speed">Скорость: ${speed} МБ/С</h5>
-        <h5 id="update-in-progress-progress">${progress}%</h5>
-        <button id="pause">Пауза</button>
+        <h4 id="update-in-progress">Загружаем обновление</h4>
+        <div class="progressbar-outline">
+            <div class="progressbar-inline"></div>
+        </div>
         `);
 }
 function updateOK() {
@@ -195,10 +194,12 @@ async function main(){
     serversUpdate();
     let news = await getNews();
     changeNews(news[i], news.length);
+    updates(updateState);
     i++;
     if (i > news.length - 1) i = 0;
 }
 async function updates(state) {
+    updateState = state;
     switch (state) {
         case 0:
             document.getElementById("update-container").innerHTML = updateWarning();
@@ -206,7 +207,7 @@ async function updates(state) {
             document.getElementById("dot").style = "background-color: #F96363";
             break;
         case 1:
-            document.getElementById("update-container").innerHTML = updateInProgress("your.mom", 4, 45);
+            document.getElementById("update-container").innerHTML = updateInProgress();
             document.getElementsByName("play-1-5")[0].disabled = true;
             document.getElementById("dot").style = "background-color: #F96363";
             break;
@@ -217,10 +218,12 @@ async function updates(state) {
             break;
     }
 }
-main();
-updates(2);
+let updateState = 2;
 let i = 0;
-//setInterval(main, 5000);
+main();
+//updates(1);
+
+setInterval(main, 5000);
 
 window.electronAPI.changeStatus(async (event, value) => {
     await updates(value)
