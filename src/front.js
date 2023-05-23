@@ -239,3 +239,8 @@ window.electronAPI.syncBetaKey(async (event, value) => {
     const betaKey = value;
     document.getElementById("beta-key-value").textContent = betaKey;
 })
+
+window.electronAPI.handleDownloading(async (event, value) => {
+    console.log("value: " + value)
+    updateInProgress("Загрузка...", 25, value)
+})

@@ -3,12 +3,12 @@ import * as path from "path";
 import {GameFilesHandler} from "./entities/GameFilesHandler";
 import {ConfigManager} from "./entities/ConfigManager";
 
-const appconfig = require('../appconfig.json');
 export const configManager = new ConfigManager();
 export const gameFilesHandler = new GameFilesHandler("C:\\Users\\Dmitry\\WebstormProjects\\mta-launcher\\test_gamepath", -1)
+export let mainWindow: BrowserWindow;
 
-const createWindow = () => {
-    const mainWindow = new BrowserWindow({
+const createWindow = async () => {
+    mainWindow = new BrowserWindow({
         width: 1080,
         height: 725,
         resizable: false,
@@ -26,21 +26,28 @@ const createWindow = () => {
     mainWindow.loadFile('src/index.html')
 
     ipcMain.handle('connectToServer', async (event, args) => {
-        if (await gameFilesHandler.IsActualVersion())
+        if (gameFilesHandler.IsActualVersion())
             mainWindow.webContents.send('changeStatus', 2)
         else
             mainWindow.webContents.send('changeStatus', 0)
     })
     ipcMain.handle('updateGameFiles', async () => {
         mainWindow.webContents.send('changeStatus', 1)
-        await gameFilesHandler.UpdateGameFiles()
+        // mainWindow.webContents.on('did-finish-load',  () => {
+        //     mainWindow.webContents.send('handleDownloading', 75)
+        // })
+        await gameFilesHandler.UpdateGameFiles(() => {
+            mainWindow.webContents.send('changeStatus', 2)
+        })
     })
     ipcMain.handle('getDirectory', getDirectory)
     ipcMain.on('closeApp', () => app.quit());
     ipcMain.on('minimizeApp', () => mainWindow.minimize());
 
-    mainWindow.webContents.send('syncGamePath', configManager.getData("gamefilesDirectory"))
-    mainWindow.webContents.send('syncBetaKey', configManager.getData("beta_key"))
+    mainWindow.webContents.on('did-finish-load',  () => {
+        mainWindow.webContents.send('syncGamePath', configManager.getData("gamefilesDirectory"))
+        mainWindow.webContents.send('syncBetaKey', configManager.getData("beta_key"))
+    })
 }
 
 app.whenReady().then(() => {
