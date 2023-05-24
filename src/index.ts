@@ -33,9 +33,6 @@ const createWindow = async () => {
     })
     ipcMain.handle('updateGameFiles', async () => {
         mainWindow.webContents.send('changeStatus', 1)
-        // mainWindow.webContents.on('did-finish-load',  () => {
-        //     mainWindow.webContents.send('handleDownloading', 75)
-        // })
         await gameFilesHandler.UpdateGameFiles(() => {
             mainWindow.webContents.send('changeStatus', 2)
         })
@@ -49,6 +46,9 @@ const createWindow = async () => {
         mainWindow.webContents.send('syncBetaKey', configManager.getData("beta_key"))
     })
 }
+
+if (require('electron-squirrel-startup'))
+    app.quit();
 
 app.whenReady().then(() => {
     createWindow()

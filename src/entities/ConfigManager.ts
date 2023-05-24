@@ -2,7 +2,6 @@ import path from "path";
 import * as fs from "fs";
 import {ConfigSchema} from "./ConfigSchema";
 import {GameFilesHandler} from "./GameFilesHandler";
-import { gameFilesHandler } from "..";
 const appconfig = require('../../appconfig.json');
 
 export class ConfigManager {
@@ -13,12 +12,10 @@ export class ConfigManager {
     private _configData: ConfigSchema | undefined;
     private readonly configDirectory: string;
     private readonly configFile: string;
-    private readonly gameFilesHandler: GameFilesHandler;
 
     public constructor() {
         this.configDirectory = path.join(process.env.home as string, "Documents", "GTA DERZHAVA");
         this.configFile = path.join(process.env.home as string, "Documents", "GTA DERZHAVA", appconfig.app.config_filename);
-        this.gameFilesHandler = gameFilesHandler;
         this.checkConfig()
     }
 
@@ -58,7 +55,7 @@ export class ConfigManager {
 
     private setupConfig(): void {
         const config: ConfigSchema = {
-            installed_version: this.gameFilesHandler.currentVersion,
+            installed_version: -1,
             beta_key: "",
             gamefilesDirectory: ""
         }

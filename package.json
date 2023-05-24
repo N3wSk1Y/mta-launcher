@@ -1,11 +1,11 @@
 {
-    "name": "mta-launcher",
+    "name": "gta-derzhava-launcher",
+    "description": "GTA Derzhava Launcher",
     "version": "1.0.0",
     "main": "src/index.js",
     "scripts": {
         "start": "electron-forge start",
-        "package": "electron-forge package",
-        "make": "electron-forge make"
+        "build": "electron-builder"
     },
     "author": "N3wSk1Y",
     "license": "MIT",
@@ -25,6 +25,32 @@
         "decompress": "^4.2.1",
         "decompress-unzip": "^4.0.1",
         "electron-squirrel-startup": "^1.0.0",
+        "path": "^0.12.7",
         "request": "^2.88.2"
+    },
+    "build": {
+        "appId": "com.gtaderzhavalauncher.app",
+        "asar": true,
+        "files": [
+            "dist/**/*",
+            "package.json"
+        ],
+        "directories": {
+            "buildResources": "assets"
+        },
+        "win": {
+            "icon": "src/public/icon.ico",
+            "target": [
+                "nsis"
+            ]
+        },
+        "nsis": {
+            "oneClick": false,
+            "installerIcon": "src/public/icon.ico",
+            "uninstallerIcon": "src/public/icon.ico",
+            "license": "./LICENSE",
+            "uninstallDisplayName": "GTA Derzhava",
+            "allowToChangeInstallationDirectory": true
+        }
     }
 }

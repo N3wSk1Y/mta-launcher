@@ -1,9 +1,14 @@
 {
     "app": {
-        "config_filename": "config.json"
+        "config_filename": "config.json",
+        "site": "https://google.com",
+        "forum": "https://google.com",
+        "vk": "https://google.com",
+        "telegram": "https://google.com"
     },
     "gamefiles": {
         "files_url": "http://mirror.gtaderzhava.ru/gameFiles/",
-        "versions_manifest_url": "http://mirror.gtaderzhava.ru/gameFiles/versions.json"
+        "versions_manifest_url": "http://mirror.gtaderzhava.ru/gameFiles/versions.json",
+        "default_directory": "C:\\Games\\MTA"
     }
 }

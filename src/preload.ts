@@ -12,5 +12,4 @@ contextBridge.exposeInMainWorld('electronAPI', {
     changeStatus: (callback: any) => ipcRenderer.on('changeStatus', callback),
     syncGamePath: (callback: any) => ipcRenderer.on('syncGamePath', callback),
     syncBetaKey: (callback: any) => ipcRenderer.on('syncBetaKey', callback),
-    handleDownloading: (callback: any) => ipcRenderer.on('handleDownloading', callback),
 })
