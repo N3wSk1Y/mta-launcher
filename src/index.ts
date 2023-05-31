@@ -2,9 +2,11 @@ import { app, BrowserWindow, ipcMain, dialog } from 'electron';
 import * as path from "path";
 import {GameFilesHandler} from "./entities/GameFilesHandler";
 import {ConfigManager} from "./entities/ConfigManager";
+import {FTPClient} from "./FTPClient";
+const appconfig = require('../appconfig.json')
 
 export const configManager = new ConfigManager();
-export const gameFilesHandler = new GameFilesHandler("C:\\Users\\Dmitry\\WebstormProjects\\mta-launcher\\test_gamepath", -1)
+export const gameFilesHandler = new GameFilesHandler("C:\\Users\\Dmitry\\WebstormProjects\\mta-launcher\\aboba");
 export let mainWindow: BrowserWindow;
 
 const createWindow = async () => {
@@ -26,10 +28,10 @@ const createWindow = async () => {
     mainWindow.loadFile('src/index.html')
 
     ipcMain.handle('connectToServer', async (event, args) => {
-        if (gameFilesHandler.IsActualVersion())
+        mainWindow.webContents.send('changeStatus', 1)
+        await gameFilesHandler.CheckGameFiles(async () => {
             mainWindow.webContents.send('changeStatus', 2)
-        else
-            mainWindow.webContents.send('changeStatus', 0)
+        })
     })
     ipcMain.handle('updateGameFiles', async () => {
         mainWindow.webContents.send('changeStatus', 1)
@@ -50,8 +52,8 @@ const createWindow = async () => {
 if (require('electron-squirrel-startup'))
     app.quit();
 
-app.whenReady().then(() => {
-    createWindow()
+app.whenReady().then(async () => {
+    await createWindow()
 
     app.on('activate', () => {
         if (BrowserWindow.getAllWindows().length === 0) {

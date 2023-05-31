@@ -5,6 +5,7 @@
     "main": "src/index.js",
     "scripts": {
         "start": "electron-forge start",
+        "package": "electron-forge package",
         "build": "electron-builder"
     },
     "author": "N3wSk1Y",
@@ -19,38 +20,42 @@
         "@types/ftps": "^1.2.0",
         "@types/got": "^9.6.12",
         "@types/request": "^2.48.8",
-        "electron": "^24.3.0"
+        "electron": "^24.3.0",
+        "electron-builder": "^23.6.0"
     },
     "dependencies": {
+        "basic-ftp": "^5.0.3",
         "decompress": "^4.2.1",
         "decompress-unzip": "^4.0.1",
         "electron-squirrel-startup": "^1.0.0",
+        "md5-file": "^5.0.0",
+        "node-wget": "^0.4.3",
+        "parse-apache-directory-index": "^4.0.0",
         "path": "^0.12.7",
+        "replaceall": "^0.1.6",
         "request": "^2.88.2"
     },
     "build": {
         "appId": "com.gtaderzhavalauncher.app",
         "asar": true,
-        "files": [
-            "dist/**/*",
-            "package.json"
-        ],
-        "directories": {
-            "buildResources": "assets"
-        },
+        "productName": "GTA Derzhava",
         "win": {
-            "icon": "src/public/icon.ico",
+            "icon": "src/public/icon2.ico",
             "target": [
                 "nsis"
             ]
         },
         "nsis": {
+            "artifactName": "${productName} Setup.${ext}",
             "oneClick": false,
-            "installerIcon": "src/public/icon.ico",
-            "uninstallerIcon": "src/public/icon.ico",
+            "installerIcon": "src/public/icon2.ico",
+            "uninstallerIcon": "src/public/icon2.ico",
             "license": "./LICENSE",
             "uninstallDisplayName": "GTA Derzhava",
-            "allowToChangeInstallationDirectory": true
+            "allowToChangeInstallationDirectory": true,
+            "runAfterFinish": true,
+            "createDesktopShortcut": true,
+            "createStartMenuShortcut": true
         }
     }
 }

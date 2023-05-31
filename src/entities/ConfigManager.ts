@@ -1,7 +1,7 @@
 import path from "path";
 import * as fs from "fs";
 import {ConfigSchema} from "./ConfigSchema";
-import {GameFilesHandler} from "./GameFilesHandler";
+import os from 'os'
 const appconfig = require('../../appconfig.json');
 
 export class ConfigManager {
@@ -14,8 +14,8 @@ export class ConfigManager {
     private readonly configFile: string;
 
     public constructor() {
-        this.configDirectory = path.join(process.env.home as string, "Documents", "GTA DERZHAVA");
-        this.configFile = path.join(process.env.home as string, "Documents", "GTA DERZHAVA", appconfig.app.config_filename);
+        this.configDirectory = path.join(os.homedir(), "Documents", "GTA DERZHAVA");
+        this.configFile = path.join(os.homedir(), "Documents", "GTA DERZHAVA", appconfig.app.config_filename);
         this.checkConfig()
     }
 
@@ -57,13 +57,10 @@ export class ConfigManager {
         const config: ConfigSchema = {
             installed_version: -1,
             beta_key: "",
-            gamefilesDirectory: ""
+            gamefilesDirectory: appconfig.gamefiles.default_directory
         }
-        fs.mkdir(this.configDirectory, { recursive: true }, () => {
-            fs.writeFile(this.configFile, JSON.stringify(config), (err) => {
-                if (err) console.log(err);
-            });
-        })
+        fs.mkdirSync(this.configDirectory, { recursive: true })
+        fs.writeFileSync(this.configFile, JSON.stringify(config));
     }
 
     private uploadConfig(): void {

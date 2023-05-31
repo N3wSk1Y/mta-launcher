@@ -1,6 +1,9 @@
 import request from 'request';
-import * as fs from "fs";
+import fs from "fs";
+import {FTPClient} from "../FTPClient";
 import * as http from "http";
+const parse = require('parse-apache-directory-index')
+const appconfig = require('../../appconfig.json')
 
 export class HTTPClient {
     public static async Request(options: any): Promise<any> {
@@ -12,23 +15,37 @@ export class HTTPClient {
         })
     }
 
-    public static async Download(url: string, fileName: string, duringDownloadCallback: CallableFunction, callback: CallableFunction): Promise<any> {
+    public static async Download(url: string, fileName: string, callback: CallableFunction): Promise<any> {
         const file = fs.createWriteStream(fileName);
         http.get(url, function(response) {
-            const length = parseInt(<string>response.headers['content-length'], 10);
-            const total = length / 1048576;
-            let current = 0;
             response.pipe(file);
-            response.on("data", async (chunk) => {
-                current += chunk.length;
-                await duringDownloadCallback("Загрузка...", 100.0 * current / length)
-                // console.log(`Downloading: ${(100.0 * current / length).toFixed(2)}%`)
-            });
             file.on('finish', () => {
                 return new Promise(async () => {
                     callback()
                 })
             });
         });
+    }
+
+    public static async DownloadDirectory(url: string, path: string, callback?: CallableFunction): Promise<void> {
+        let filesManifest = await HTTPClient.Request({
+            'method': 'GET',
+            'url': url,
+        })
+        const {dir, files} = parse(filesManifest)
+
+        for (let i = 0; i < files.length; i++) {
+            if (files[i].type === "file") {
+                await FTPClient.DownloadFile(appconfig.gamefiles.host + files[i].path, files[i].path.replace(dir, path))
+            }
+            else if (files[i].type === "directory") {
+                const directory = files[i].path.replace(dir, path)
+                if (!fs.existsSync(directory)){
+                    fs.mkdirSync(directory, { recursive: true });
+                }
+                await this.DownloadDirectory(appconfig.gamefiles.host + files[i].path, directory)
+            }
+        }
+        if (callback) await callback()
     }
 }

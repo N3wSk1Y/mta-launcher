@@ -1,7 +1,7 @@
 /node_modules/
-/test_gamepath/
 /out/
 /my-app/
 /dist/
 
 *.js
+/test_gamepath/

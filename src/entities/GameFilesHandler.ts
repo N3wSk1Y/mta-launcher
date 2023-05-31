@@ -3,21 +3,20 @@ import * as path from "path";
 import {configManager, mainWindow} from "../index";
 import decompress from 'decompress';
 import * as fs from "fs";
+import {FTPClient} from "../FTPClient";
 const decompressUnzip = require('decompress-unzip');
 const appconfig = require('../../appconfig.json');
+const md5File = require('md5-file')
 
 export class GameFilesHandler {
-    get currentVersion(): number {
-        return this._currentVersion;
-    }
     public gamePath: string;
-    private _currentVersion: number;
     private versionsManifest: any;
+    private filesManifest: any
 
-    public constructor(gamePath: string, currentVersion: number) {
+    public constructor(gamePath: string) {
         this.gamePath = gamePath;
-        this._currentVersion = configManager.getData("installed_version") | currentVersion;
         this.GetVersionsManifest()
+        this.GetFilesManifest()
     }
 
     public async GetVersionsManifest(): Promise<void> {
@@ -32,30 +31,61 @@ export class GameFilesHandler {
         this.versionsManifest = JSON.parse(versionsManifest);
     }
 
-    public IsActualVersion(): boolean {
-        console.log(this.versionsManifest.current_version + " " + this.currentVersion)
-        return this.versionsManifest.current_version == this.currentVersion;
+    public async GetFilesManifest(): Promise<void> {
+        const filesManifest = await HTTPClient.Request({
+            'method': 'GET',
+            'url': appconfig.gamefiles.files_manifest_url,
+            'headers': {
+                'Content-Type': ' application/x-www-form-urlencoded'
+            },
+            'gzip': true
+        }) as any
+        this.filesManifest = JSON.parse(filesManifest);
+    }
+
+    public async CheckGameFiles(callback?: CallableFunction): Promise<void> {
+        await FTPClient.Auth()
+        for (const item of this.filesManifest) {
+            const filePath = item.path
+            const fileDirectory = filePath.substring(0, filePath.lastIndexOf('/'));
+            const localFileDirectory = path.join(configManager.getData('gamefilesDirectory'), fileDirectory);
+            const localFilePath = path.join(configManager.getData('gamefilesDirectory'), filePath);
+
+            if (!fs.existsSync(localFilePath)) {
+                fs.mkdirSync(localFileDirectory, { recursive: true });
+            }
+            if (!fs.existsSync(localFilePath)) {
+                fs.writeFileSync(localFilePath, "");
+            }
+            await md5File(path.join(configManager.getData('gamefilesDirectory'), filePath)).then(async (hash: any) => {
+                if (hash.toLowerCase() !== item.hash.toLowerCase()) {
+                    console.log(filePath)
+                    console.log(hash.toLowerCase())
+                    console.log(item.hash.toLowerCase())
+                    await FTPClient.DownloadFile(path.join("release-1", filePath), path.join(configManager.getData('gamefilesDirectory'), filePath))
+                }
+            })
+        }
+        return new Promise(() => {
+            if (callback) callback()
+        })
     }
 
     public async UpdateGameFiles(callback: CallableFunction): Promise<void> {
-        const actual_version = this.versionsManifest.versions.filter((el: { id: number; }) => el.id === this.versionsManifest.current_version)[0]
-        await HTTPClient.Download(path.join(appconfig.gamefiles.files_url, actual_version.path), path.join(configManager.getData("gamefilesDirectory"), "gamefiles.zip"), async (fileName: string, progress: number) => {
-        },async () => {
-            await this.DecompressGameFiles()
-            fs.unlink(path.join(configManager.getData("gamefilesDirectory"), "gamefiles.zip"), () => {
-                return new Promise(() => callback())
-            })
-        })
-        this._currentVersion = this.versionsManifest.current_version;
-        configManager.setData("installed_version", this.currentVersion);
+        // await HTTPClient.Download(appconfig.gamefiles.release_url, path.join(configManager.getData("gamefilesDirectory"), "release-1.zip"), async (fileName: string, progress: number) => {
+        // },async () => {
+        //     await this.DecompressGameFiles()
+        //     fs.unlink(path.join(configManager.getData("gamefilesDirectory"), "release-1.zip"), () => {
+        //         return new Promise(() => callback())
+        //     })
+        // })
+        // await FTPClient.DownloadFile(this.versionsManifest.path, configManager.getData("gamefilesDirectory")).then(async () => {
+        //     await FTPClient.Close();
+        //     await this.DecompressGameFiles().then( async () => {
+        //         console.log("Done!")
+        //         await callback();
+        //     })
+        // })
     }
 
-    private async DecompressGameFiles(): Promise<void> {
-        await decompress(path.join(configManager.getData("gamefilesDirectory"), "gamefiles.zip"), configManager.getData("gamefilesDirectory"),
-        {
-            plugins: [
-                decompressUnzip()
-            ]
-        })
-    }
 }

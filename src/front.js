@@ -176,7 +176,7 @@ function updateWarning() {
 function updateInProgress() {
     return (
         `
-        <h4 id="update-in-progress">Загружаем обновление</h4>
+        <h4 id="update-in-progress">Проверяем файлы игры ~ Загружаем обновление</h4>
         <div class="progressbar-outline">
             <div class="progressbar-inline"></div>
         </div>

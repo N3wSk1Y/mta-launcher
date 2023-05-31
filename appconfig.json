@@ -7,8 +7,16 @@
         "telegram": "https://google.com"
     },
     "gamefiles": {
+        "host": "http://mirror.gtaderzhava.ru",
         "files_url": "http://mirror.gtaderzhava.ru/gameFiles/",
+        "files_manifest_url": "http://mirror.gtaderzhava.ru/gameFiles/files.json",
         "versions_manifest_url": "http://mirror.gtaderzhava.ru/gameFiles/versions.json",
+        "release_url": "http://mirror.gtaderzhava.ru/gameFiles/release-1",
         "default_directory": "C:\\Games\\MTA"
+    },
+    "ftp_client": {
+        "host": "82.146.48.195",
+        "user": "launcher",
+        "password": "bX4pP1yM7s"
     }
 }
