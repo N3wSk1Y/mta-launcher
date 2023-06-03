@@ -9,7 +9,6 @@ export let mainWindow: BrowserWindow;
 
 require('update-electron-app')();
 
-
 const createWindow = async () => {
     mainWindow = new BrowserWindow({
         width: 1080,
