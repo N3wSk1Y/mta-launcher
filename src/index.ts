@@ -7,6 +7,9 @@ export const configManager = new ConfigManager();
 export const gameFilesHandler = new GameFilesHandler("C:\\Users\\Dmitry\\WebstormProjects\\mta-launcher\\aboba");
 export let mainWindow: BrowserWindow;
 
+require('update-electron-app')();
+
+
 const createWindow = async () => {
     mainWindow = new BrowserWindow({
         width: 1080,

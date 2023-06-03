@@ -1,12 +1,17 @@
 {
     "name": "gta-derzhava-launcher",
     "description": "GTA Derzhava Launcher",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "main": "src/index.js",
     "scripts": {
         "start": "electron-forge start",
         "package": "electron-forge package",
-        "build": "electron-builder"
+        "build": "electron-builder",
+        "ship": "electron-builder -p always"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/N3wSk1Y/mta-launcher.git"
     },
     "author": "N3wSk1Y",
     "license": "MIT",
@@ -33,7 +38,8 @@
         "parse-apache-directory-index": "^4.0.0",
         "path": "^0.12.7",
         "replaceall": "^0.1.6",
-        "request": "^2.88.2"
+        "request": "^2.88.2",
+        "update-electron-app": "^2.0.1"
     },
     "build": {
         "appId": "com.gtaderzhavalauncher.app",
