@@ -2,8 +2,6 @@ import { app, BrowserWindow, ipcMain, dialog } from 'electron';
 import * as path from "path";
 import {GameFilesHandler} from "./entities/GameFilesHandler";
 import {ConfigManager} from "./entities/ConfigManager";
-import {FTPClient} from "./FTPClient";
-const appconfig = require('../appconfig.json')
 
 export const configManager = new ConfigManager();
 export const gameFilesHandler = new GameFilesHandler("C:\\Users\\Dmitry\\WebstormProjects\\mta-launcher\\aboba");
@@ -30,12 +28,6 @@ const createWindow = async () => {
     ipcMain.handle('connectToServer', async (event, args) => {
         mainWindow.webContents.send('changeStatus', 1)
         await gameFilesHandler.CheckGameFiles(async () => {
-            mainWindow.webContents.send('changeStatus', 2)
-        })
-    })
-    ipcMain.handle('updateGameFiles', async () => {
-        mainWindow.webContents.send('changeStatus', 1)
-        await gameFilesHandler.UpdateGameFiles(() => {
             mainWindow.webContents.send('changeStatus', 2)
         })
     })
