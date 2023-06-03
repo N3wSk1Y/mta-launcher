@@ -1,6 +1,6 @@
 import request from 'request';
 import fs from "fs";
-import {FTPClient} from "../FTPClient";
+import {FTPClient} from "./FTPClient";
 import * as http from "http";
 
 const parse = require('parse-apache-directory-index')

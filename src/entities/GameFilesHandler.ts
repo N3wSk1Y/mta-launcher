@@ -1,8 +1,8 @@
 import {HTTPClient} from "./HTTPClient";
-import * as path from "path";
 import {configManager} from "../index";
+import {FTPClient} from "./FTPClient";
+import * as path from "path";
 import * as fs from "fs";
-import {FTPClient} from "../FTPClient";
 
 const appconfig = require('../../appconfig.json');
 const md5File = require('md5-file')
