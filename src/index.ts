@@ -2,12 +2,17 @@ import { app, BrowserWindow, ipcMain, dialog } from 'electron';
 import * as path from "path";
 import {GameFilesHandler} from "./entities/GameFilesHandler";
 import {ConfigManager} from "./entities/ConfigManager";
+require('dotenv').config()
 
 export const configManager = new ConfigManager();
-export const gameFilesHandler = new GameFilesHandler("C:\\Users\\Dmitry\\WebstormProjects\\mta-launcher\\aboba");
+export const gameFilesHandler = new GameFilesHandler("C:\\Users\\Dmitry\\WebstormProjects\\mta-launcher\\test_gamepath");
 export let mainWindow: BrowserWindow;
 
-require('update-electron-app')();
+require('update-electron-app')({
+    repo: 'n3wsk1y/gta-derzhava',
+    updateInterval: '10 minutes',
+    logger: require('electron-log')
+});
 
 const createWindow = async () => {
     mainWindow = new BrowserWindow({
@@ -24,7 +29,7 @@ const createWindow = async () => {
             nodeIntegration: true
         }
     })
-
+    console.log(process.env.FTP_HOST)
     mainWindow.loadFile('src/index.html')
 
     ipcMain.handle('connectToServer', async (event, args) => {

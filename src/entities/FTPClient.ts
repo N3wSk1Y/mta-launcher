@@ -1,15 +1,14 @@
 import fs from "fs";
 
 const ftp = require('basic-ftp')
-const appconfig = require('../../appconfig.json')
 const replaceall = require("replaceall");
 
 export class FTPClient {
     public static readonly ftpClient = new ftp.Client()
     private static readonly options: object = {
-        'host': appconfig.ftp_client.host,
-        'user': appconfig.ftp_client.user,
-        'password': appconfig.ftp_client.password,
+        'host': process.env.FTP_HOST,
+        'user': process.env.FTP_USER,
+        'password': process.env.FTP_PASSWORD,
     }
 
     public static async Auth(): Promise<void> {
