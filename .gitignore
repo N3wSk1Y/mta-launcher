@@ -4,5 +4,5 @@
 /dist/
 
 *.js
-.env
 /test_gamepath/
+/.env

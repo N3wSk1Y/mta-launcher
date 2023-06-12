@@ -19,7 +19,13 @@ export class HTTPClient {
     public static async Download(url: string, fileName: string, callback: CallableFunction): Promise<any> {
         const file = fs.createWriteStream(fileName);
         http.get(url, function(response) {
+            const len = parseInt(<string>response.headers['content-length'], 10);
+            let cur = 0;
             response.pipe(file);
+            response.on("data", function(chunk) {
+                cur += chunk.length;
+                console.log("Downloading " + (100.0 * cur / len).toFixed(2));
+            });
             file.on('finish', () => {
                 return new Promise(async () => {
                     callback()

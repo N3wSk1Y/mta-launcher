@@ -1,21 +1,23 @@
-import { app, BrowserWindow, ipcMain, dialog } from 'electron';
+import { app, BrowserWindow, ipcMain, dialog, autoUpdater } from 'electron';
 import * as path from "path";
 import {GameFilesHandler} from "./entities/GameFilesHandler";
 import {ConfigManager} from "./entities/ConfigManager";
-require('dotenv').config()
+const ChildProcess = require('child_process');
 
 export const configManager = new ConfigManager();
 export const gameFilesHandler = new GameFilesHandler("C:\\Users\\Dmitry\\WebstormProjects\\mta-launcher\\test_gamepath");
 export let mainWindow: BrowserWindow;
 
-require('update-electron-app')({
-    repo: 'n3wsk1y/gta-derzhava',
-    updateInterval: '10 minutes',
-    logger: require('electron-log')
-});
+if (require('electron-squirrel-startup'))
+    app.quit();
+
+app.setName("GTA DERZHAVA")
+
+console.log(process.argv)
 
 const createWindow = async () => {
     mainWindow = new BrowserWindow({
+        icon: path.join(__dirname, "public", "icon2.ico"),
         width: 1080,
         height: 725,
         resizable: false,
@@ -29,7 +31,6 @@ const createWindow = async () => {
             nodeIntegration: true
         }
     })
-    console.log(process.env.FTP_HOST)
     mainWindow.loadFile('src/index.html')
 
     ipcMain.handle('connectToServer', async (event, args) => {
@@ -48,9 +49,6 @@ const createWindow = async () => {
     })
 }
 
-if (require('electron-squirrel-startup'))
-    app.quit();
-
 app.whenReady().then(async () => {
     await createWindow()
 
@@ -67,8 +65,23 @@ app.on('window-all-closed', () => {
     }
 })
 
-process.on("uncaughtException", (err) => {
-    dialog.showMessageBoxSync({
+autoUpdater.on('update-downloaded', (ev, info) => {
+    setTimeout(function () {
+        autoUpdater.quitAndInstall();
+    }, 5000)
+})
+
+autoUpdater.setFeedURL({url: `https://gta-derzhava.vercel.app/update/win32/${app.getVersion()}`})
+setTimeout(() => {
+    for (const atribute in process.argv) {
+        if (atribute === '--squirrel-firstrun')
+            return
+    }
+    autoUpdater.checkForUpdates()
+}, 30000)
+
+process.on("uncaughtException", async (err) => {
+    await dialog.showMessageBox({
         type: "error",
         title: "Произошла ошибка",
         message: err.message
@@ -89,3 +102,61 @@ async function getDirectory (): Promise<string> {
         throw new Error("Выберите папку с игрой.")
     }
 }
+
+function handleSquirrelEvent() {
+    if (process.argv.length === 1) {
+        return false;
+    }
+    const appFolder = path.resolve(process.execPath, '..');
+    const rootAtomFolder = path.resolve(appFolder, '..');
+    const updateDotExe = path.resolve(path.join(rootAtomFolder, 'Update.exe'));
+    const exeName = path.basename(process.execPath);
+
+    const spawn = function(command: any, args: any) {
+        let spawnedProcess, error;
+
+        try {
+            spawnedProcess = ChildProcess.spawn(command, args, {detached: true});
+        } catch (error) {}
+
+        return spawnedProcess;
+    };
+
+    const spawnUpdate = function(args: any) {
+        return spawn(updateDotExe, args);
+    };
+
+    const squirrelEvent = process.argv[1];
+    switch (squirrelEvent) {
+        case '--squirrel-install':
+        case '--squirrel-updated':
+            // Optionally do things such as:
+            // - Add your .exe to the PATH
+            // - Write to the registry for things like file associations and
+            //   explorer context menus
+
+            // Install desktop and start menu shortcuts
+            spawnUpdate(['--createShortcut', exeName]);
+
+            setTimeout(app.quit, 1000);
+            return true;
+
+        case '--squirrel-uninstall':
+            // Undo anything you did in the --squirrel-install and
+            // --squirrel-updated handlers
+
+            // Remove desktop and start menu shortcuts
+            spawnUpdate(['--removeShortcut', exeName]);
+
+            setTimeout(app.quit, 1000);
+            return true;
+
+        case '--squirrel-obsolete':
+            // This is called on the outgoing version of your app before
+            // we update to the new version - it's the opposite of
+            // --squirrel-updated
+
+            app.quit();
+            return true;
+    }
+};

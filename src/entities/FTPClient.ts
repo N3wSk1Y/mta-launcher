@@ -1,4 +1,5 @@
 import fs from "fs";
+require('dotenv').config()
 
 const ftp = require('basic-ftp')
 const replaceall = require("replaceall");

@@ -1,10 +1,18 @@
 module.exports = {
-    packagerConfig: {},
+    packagerConfig: {
+        icon: __dirname + "/src/public/icon2"
+    },
     rebuildConfig: {},
     makers: [
         {
             name: '@electron-forge/maker-squirrel',
-            config: {},
+            platforms: ['win32'],
+            config: {
+                name: "GtaDerzhava",
+                authors: "GTA DERZHAVA",
+                setupIcon: __dirname + "/src/public/icon2.ico",
+                iconUrl: __dirname + "/src/public/icon2.ico"
+            },
         },
         {
             name: '@electron-forge/maker-zip',

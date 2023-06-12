@@ -7,11 +7,11 @@
         "telegram": "https://google.com"
     },
     "gamefiles": {
-        "host": "http://mirror.gtaderzhava.ru",
-        "files_url": "http://mirror.gtaderzhava.ru/gameFiles/",
-        "files_manifest_url": "http://mirror.gtaderzhava.ru/gameFiles/files.json",
-        "versions_manifest_url": "http://mirror.gtaderzhava.ru/gameFiles/versions.json",
-        "release_url": "http://mirror.gtaderzhava.ru/gameFiles/release-1",
+        "host": "http://download.gtaderzhava.ru",
+        "files_url": "http://download.gtaderzhava.ru/gameFiles/",
+        "files_manifest_url": "http://download.gtaderzhava.ru/game_files.json",
+        "versions_manifest_url": "http://download.gtaderzhava.ru/gameFiles/versions.json",
+        "release_url": "http://download.gtaderzhava.ru/gameFiles/release-1",
         "default_directory": "C:\\Games\\MTA"
     }
 }
