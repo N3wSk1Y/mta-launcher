@@ -1,19 +1,18 @@
-import { app, BrowserWindow, ipcMain, dialog, autoUpdater } from 'electron';
+import { app, BrowserWindow, ipcMain, dialog } from 'electron';
 import * as path from "path";
 import {GameFilesHandler} from "./entities/GameFilesHandler";
 import {ConfigManager} from "./entities/ConfigManager";
-const ChildProcess = require('child_process');
+import { autoUpdater } from 'electron-updater'
 
 export const configManager = new ConfigManager();
 export const gameFilesHandler = new GameFilesHandler("C:\\Users\\Dmitry\\WebstormProjects\\mta-launcher\\test_gamepath");
 export let mainWindow: BrowserWindow;
 
-if (require('electron-squirrel-startup'))
-    app.quit();
+autoUpdater.autoDownload = true;
+autoUpdater.autoInstallOnAppQuit = true;
+autoUpdater.setFeedURL(`https://update.electronjs.org/N3wSk1Y/gta-derzhava/win32-x64/${app.getVersion()}`)
 
 app.setName("GTA DERZHAVA")
-
-console.log(process.argv)
 
 const createWindow = async () => {
     mainWindow = new BrowserWindow({
@@ -57,6 +56,7 @@ app.whenReady().then(async () => {
             createWindow()
         }
     })
+    await autoUpdater.checkForUpdatesAndNotify();
 })
 
 app.on('window-all-closed', () => {
@@ -65,20 +65,29 @@ app.on('window-all-closed', () => {
     }
 })
 
-autoUpdater.on('update-downloaded', (ev, info) => {
-    setTimeout(function () {
-        autoUpdater.quitAndInstall();
-    }, 5000)
+autoUpdater.on("update-available", async () => {
+    const dialogOpts: any = {
+        type: 'info',
+        buttons: ['Ok'],
+        title: 'Обновление лаунчера',
+        message: "Обновление лаунчера\n"+path,
+        detail: 'Новая версия лаунчера готова к скачиванию.'
+    }
+    await dialog.showMessageBox(dialogOpts);
 })
 
-autoUpdater.setFeedURL({url: `https://gta-derzhava.vercel.app/update/win32/${app.getVersion()}`})
-setTimeout(() => {
-    for (const atribute in process.argv) {
-        if (atribute === '--squirrel-firstrun')
-            return
-    }
-    autoUpdater.checkForUpdates()
-}, 30000)
+autoUpdater.on("update-downloaded", async () => {
+    const dialogOpts = {
+        type: 'info',
+        buttons: ['Перезагузить', 'Позже'],
+        title: 'Обновление лаунчера',
+        message: "Обновление лаунчера",
+        detail: 'Новая версия лаунчера загружена. Перезагрузите лаунчер для обновления.'
+    };
+    dialog.showMessageBox(dialogOpts).then((returnValue) => {
+        if (returnValue.response === 0) autoUpdater.quitAndInstall()
+    })
+});
 
 process.on("uncaughtException", async (err) => {
     await dialog.showMessageBox({
@@ -102,61 +111,3 @@ async function getDirectory (): Promise<string> {
         throw new Error("Выберите папку с игрой.")
     }
 }
-
-function handleSquirrelEvent() {
-    if (process.argv.length === 1) {
-        return false;
-    }
-    const appFolder = path.resolve(process.execPath, '..');
-    const rootAtomFolder = path.resolve(appFolder, '..');
-    const updateDotExe = path.resolve(path.join(rootAtomFolder, 'Update.exe'));
-    const exeName = path.basename(process.execPath);
-
-    const spawn = function(command: any, args: any) {
-        let spawnedProcess, error;
-
-        try {
-            spawnedProcess = ChildProcess.spawn(command, args, {detached: true});
-        } catch (error) {}
-
-        return spawnedProcess;
-    };
-
-    const spawnUpdate = function(args: any) {
-        return spawn(updateDotExe, args);
-    };
-
-    const squirrelEvent = process.argv[1];
-    switch (squirrelEvent) {
-        case '--squirrel-install':
-        case '--squirrel-updated':
-            // Optionally do things such as:
-            // - Add your .exe to the PATH
-            // - Write to the registry for things like file associations and
-            //   explorer context menus
-
-            // Install desktop and start menu shortcuts
-            spawnUpdate(['--createShortcut', exeName]);
-
-            setTimeout(app.quit, 1000);
-            return true;
-
-        case '--squirrel-uninstall':
-            // Undo anything you did in the --squirrel-install and
-            // --squirrel-updated handlers
-
-            // Remove desktop and start menu shortcuts
-            spawnUpdate(['--removeShortcut', exeName]);
-
-            setTimeout(app.quit, 1000);
-            return true;
-
-        case '--squirrel-obsolete':
-            // This is called on the outgoing version of your app before
-            // we update to the new version - it's the opposite of
-            // --squirrel-updated
-
-            app.quit();
-            return true;
-    }
-};
